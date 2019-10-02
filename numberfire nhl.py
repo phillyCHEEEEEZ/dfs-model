@@ -338,7 +338,7 @@ skater_df['Blocks'] = populateColumn('Blocks', skater_blocks_final)
 skater_df['Minutes'] = populateColumn('Minutes', skater_mins_final)
 skater_df['PIM'] = populateColumn('PIM', skater_pim_final)
 
-skater_df
+# skater_df
 
 skater_df.to_csv(
     'c:\dev\Python\Repos\dfs-model\\numberfire_fanduel_skaters.csv',
