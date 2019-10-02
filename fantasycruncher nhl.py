@@ -18,7 +18,7 @@ chromedriver = (
 
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'C:\dev\Python\Scripts\Web Scraping\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True, }
 
