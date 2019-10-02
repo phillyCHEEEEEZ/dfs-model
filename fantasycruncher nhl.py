@@ -13,8 +13,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 load_dotenv()
 
-sleepTime = 5
-
 chromedriver = (
     'C:/dev/Web Drivers/chromedriver_win32/chromedriver.exe')
 
@@ -54,6 +52,6 @@ downloadPlayerlist = driver.find_element_by_xpath(
     '//div[@data-action="downloadPlayerlist"]')
 downloadPlayerlist.click()
 
-time.sleep(sleepTime)
+time.sleep(2)
 
 driver.close()

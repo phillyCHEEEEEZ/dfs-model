@@ -13,8 +13,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 load_dotenv()
 
-sleepTime = 5
-
 chromedriver = (
     'C:/dev/Web Drivers/chromedriver_win32/chromedriver.exe')
 
@@ -45,7 +43,7 @@ login = driver.find_element_by_xpath(
     '/html/body/div[1]/div/main/div/div[1]/form/button')
 login.click()
 
-time.sleep(sleepTime)
+time.sleep(2)
 
 driver.get('https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel')
 
@@ -56,6 +54,6 @@ downloadPlayerlist = driver.find_element_by_xpath(
     '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
 downloadPlayerlist.click()
 
-time.sleep(sleepTime)
+time.sleep(2)
 
 driver.close()
