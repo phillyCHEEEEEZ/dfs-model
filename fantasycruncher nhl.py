@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 load_dotenv()
 
-sleepTime = 2
+sleepTime = 5
 
 chromedriver = (
     'C:/dev/Web Drivers/chromedriver_win32/chromedriver.exe')
