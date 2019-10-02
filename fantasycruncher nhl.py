@@ -13,6 +13,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 load_dotenv()
 
+sleepTime = 2
+
 chromedriver = (
     'C:/dev/Web Drivers/chromedriver_win32/chromedriver.exe')
 
@@ -29,7 +31,7 @@ driver = webdriver.Chrome(chromedriver, options=options)
 fc_username = os.getenv('FC_USERNAME')
 fc_password = os.getenv('FC_PASSWORD')
 
-driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL')
+driver.get('https://www.fantasycruncher.com/login/')
 
 username = driver.find_element_by_id('user_email')
 username.send_keys(fc_username)
@@ -52,6 +54,6 @@ downloadPlayerlist = driver.find_element_by_xpath(
     '//div[@data-action="downloadPlayerlist"]')
 downloadPlayerlist.click()
 
-time.sleep(5)
+time.sleep(sleepTime)
 
 driver.close()
