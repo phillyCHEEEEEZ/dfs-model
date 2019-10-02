@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
+import numpy as np
 
 
 skater_url = requests.get(
@@ -24,7 +25,7 @@ skater_blocks = []
 skater_mins = []
 skater_pim = []
 
-skater_soup = BeautifulSoup(skater_url, 'html.parser')
+skater_soup = BeautifulSoup(skater_url, 'lxml')
 
 skater_table = skater_soup.find(
     'table', class_='stat-table fixed-head')
@@ -290,6 +291,32 @@ def populateColumn(columnName, data):
     return temp_df[columnName]
 
 
+skater_teams_final_temp = pd.DataFrame(skater_teams_final)
+skater_teams_final_temp[0] = skater_teams_final_temp[0].astype(str)
+skater_teams_final_temp[0] = skater_teams_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
+    '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
+# print(skater_teams_final_temp)
+
+skater_opponents_final_temp = pd.DataFrame(skater_opponents_final)
+skater_opponents_final_temp[0] = skater_opponents_final_temp[0].astype(str)
+skater_opponents_final_temp[0] = skater_opponents_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
+    '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
+# print(skater_opponents_final_temp)
+
+skater_opponents_final_temp2 = pd.DataFrame(
+    [np.nan] * len(skater_teams_final_temp)).fillna('')
+
+for i in range(0, len(skater_teams_final_temp)):
+    index = (i + 1) * 2
+    index1 = index - 2
+    index2 = index - 1
+    if skater_teams_final_temp[0][i] == skater_opponents_final_temp[0][index1]:
+        skater_opponents_final_temp2[0][i] = skater_opponents_final_temp[0][index2]
+    else:
+        skater_opponents_final_temp2[0][i] = skater_opponents_final_temp[0][index1]
+
+skater_opponents_final = skater_opponents_final_temp2.values.tolist()
+
 skater_df = pd.DataFrame()
 
 skater_df['Name'] = populateColumn('Name', skater_names_final)
@@ -311,5 +338,8 @@ skater_df['Blocks'] = populateColumn('Blocks', skater_blocks_final)
 skater_df['Minutes'] = populateColumn('Minutes', skater_mins_final)
 skater_df['PIM'] = populateColumn('PIM', skater_pim_final)
 
+skater_df
+
 skater_df.to_csv(
-    'c:\dev\Python\Repos\dfs-model\\numberfire_fanduel_skaters.csv')
+    'c:\dev\Python\Repos\dfs-model\\numberfire_fanduel_skaters.csv',
+    index=False)
