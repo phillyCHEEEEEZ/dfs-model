@@ -43,7 +43,7 @@ login = driver.find_element_by_xpath(
     '/html/body/div[1]/div/main/div/div[1]/form/button')
 login.click()
 
-time.sleep(2)
+time.sleep(5)
 
 driver.get('https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel')
 
@@ -54,6 +54,6 @@ downloadPlayerlist = driver.find_element_by_xpath(
     '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
 downloadPlayerlist.click()
 
-time.sleep(2)
+time.sleep(5)
 
 driver.close()

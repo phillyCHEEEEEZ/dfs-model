@@ -52,6 +52,6 @@ downloadPlayerlist = driver.find_element_by_xpath(
     '//div[@data-action="downloadPlayerlist"]')
 downloadPlayerlist.click()
 
-time.sleep(2)
+time.sleep(5)
 
 driver.close()
