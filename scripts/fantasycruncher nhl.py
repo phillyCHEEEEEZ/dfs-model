@@ -54,14 +54,14 @@ driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL')
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
     (By.XPATH, '//div[@data-action="downloadPlayerlist"]')))
 
-# click actions button
-actions = driver.find_element_by_id('table-actions')
-actions.click()
+# click actions dropdown
+actions_dropdown = driver.find_element_by_id('table-actions')
+actions_dropdown.click()
 
 # click download button
-downloadPlayerlist = driver.find_element_by_xpath(
+download_button = driver.find_element_by_xpath(
     '//div[@data-action="downloadPlayerlist"]')
-downloadPlayerlist.click()
+download_button.click()
 
 time.sleep(5)
 

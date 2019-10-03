@@ -60,9 +60,9 @@ WebDriverWait(driver, 5).until(EC.presence_of_element_located(
     (By.XPATH, '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')))
 
 # click download button
-downloadPlayerlist = driver.find_element_by_xpath(
+download_button = driver.find_element_by_xpath(
     '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
-downloadPlayerlist.click()
+download_button.click()
 
 time.sleep(5)
 
