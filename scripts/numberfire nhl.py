@@ -11,6 +11,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from bs4 import BeautifulSoup
+import pandas as pd
+import requests
+import numpy as np
+
 # load env vars
 load_dotenv()
 
@@ -42,9 +47,9 @@ username = driver.find_element_by_xpath(
     '//*[@id="identifierId"]')
 username.send_keys(nf_username)
 
-nextButton = driver.find_element_by_xpath(
+next_button = driver.find_element_by_xpath(
     '//*[@id="identifierNext"]/span/span')
-nextButton.click()
+next_button.click()
 
 time.sleep(2)
 
@@ -52,15 +57,114 @@ password = driver.find_element_by_xpath(
     '//*[@id="password"]/div[1]/div/div[1]/input')
 password.send_keys(nf_password)
 
-nextButton = driver.find_element_by_xpath(
+next_button = driver.find_element_by_xpath(
     '//*[@id="passwordNext"]/span/span')
-nextButton.click()
+next_button.click()
 
 time.sleep(5)
 
 # navigate to projections page
 driver.get(
     'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters')
+
+# select fanduel from dropdown list
+dropdown = driver.find_element_by_class_name('custom-drop__current')
+dropdown.click()
+
+dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
+dropdown_fanduel.click()
+
+# determine number of players
+skaters_url = requests.get(
+    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters').text
+
+goalie_url = requests.get(
+    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/goalies').text
+
+skater_names = []
+goalie_names = []
+
+skater_soup = BeautifulSoup(skaters_url, 'lxml')
+goalie_soup = BeautifulSoup(goalie_url, 'lxml')
+
+skater_table = skater_soup.find(
+    'table', class_='stat-table fixed-head')
+goalie_table = goalie_soup.find(
+    'table', class_='stat-table fixed-head')
+
+html_dict = {
+    'names': [
+        {'tag': 'a'},
+        {'class': 'full'},
+    ],
+}
+
+
+def scrapeData(dictionary, soup, index):
+    return soup.find_all(
+        dictionary[list(dictionary.keys())[index]][0][list(
+            list(dictionary[list(dictionary.keys())[index]])[0])[0]], class_=dictionary[list(dictionary.keys())[index]][1][list(
+                list(dictionary[list(dictionary.keys())[index]])[1])[0]])
+
+
+skater_names = scrapeData(html_dict, skater_table, 0)
+goalie_names = scrapeData(html_dict, goalie_table, 0)
+
+num_skaters = len(skater_names)
+num_goalies = len(goalie_names)
+num_players = num_skaters + num_goalies
+
+# xpath strings
+name_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+name_xpath_2 = ']/td[1]/span/a[2]'
+
+position_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+position_xpath_2 = ']/td[1]/span/span'
+
+team_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+team_xpath_2 = ']/td[1]/span/div/span[1]'
+team_xpath_3 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+team_xpath_4 = ']/td[1]/span/div/span[2]'
+
+projection_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+projection_xpath_2 = ']/td[2]'
+
+salary_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+salary_xpath_2 = ']/td[3]'
+
+value_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+value_xpath_2 = ']/td[4]'
+
+shots_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+shots_xpath_2 = ']/td[5]'
+
+goals_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+goals_xpath_2 = ']/td[6]'
+
+assists_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+assists_xpath_2 = ']/td[7]'
+
+points_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+points_xpath_2 = ']/td[8]'
+
+ppg_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+ppg_xpath_2 = ']/td[9]'
+
+ppa_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+ppa_xpath_2 = ']/td[10]'
+
+plusminus_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+plusminus_xpath_2 = ']/td[11]'
+
+blocks_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+blocks_xpath_2 = ']/td[12]'
+
+minutes_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+minutes_xpath_2 = ']/td[13]'
+
+pim_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+pim_xpath_2 = ']/td[14]'
+
 
 time.sleep(5)
 
