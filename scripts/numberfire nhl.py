@@ -63,17 +63,6 @@ next_button.click()
 
 time.sleep(5)
 
-# navigate to projections page
-driver.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters')
-
-# select fanduel from dropdown list
-dropdown = driver.find_element_by_class_name('custom-drop__current')
-dropdown.click()
-
-dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
-dropdown_fanduel.click()
-
 # determine number of players
 skaters_url = requests.get(
     'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters').text
@@ -165,6 +154,36 @@ minutes_xpath_2 = ']/td[13]'
 pim_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
 pim_xpath_2 = ']/td[14]'
 
+# create data frames
+# navigate to skater projections page
+driver.get(
+    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters')
+
+# select fanduel from dropdown list
+dropdown = driver.find_element_by_class_name('custom-drop__current')
+dropdown.click()
+
+dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
+dropdown_fanduel.click()
+
+# initialize data frame
+skater_df = pd.DataFrame(index=range(num_players), columns=range(17))
+skater_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
+                     'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM']
+
+
+# function to populate columns
+def populateColumn(df, column, xpath1, xpath2, xpath3='', xpath4=''):
+    df = pd.DataFrame()
+    for i in range(0, num_players):
+        xpath_final1 = xpath1 + str(i) + xpath2
+        xpath_final2 = xpath3 + str(i) + xpath4
+        content = driver.find_element_by_xpath(xpath_final1)
+
+
+# populate columns
+# skater_df['Name'] =
+populateColumn(skater_df, 'Name', name_xpath_1, name_xpath_2)
 
 time.sleep(5)
 
