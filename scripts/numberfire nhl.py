@@ -237,3 +237,8 @@ time.sleep(5)
 
 # close browser
 driver.close()
+
+# export
+skater_df.to_csv(
+    'c:/dev/Python/Repos/dfs-model/data/numberfire_fanduel_skaters.csv',
+    index=False)
