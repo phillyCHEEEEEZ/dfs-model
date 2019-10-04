@@ -167,23 +167,71 @@ dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
 dropdown_fanduel.click()
 
 # initialize data frame
-skater_df = pd.DataFrame(index=range(num_players), columns=range(17))
+skater_df = pd.DataFrame(index=range(num_skaters), columns=range(17))
 skater_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
                      'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM']
 
 
 # function to populate columns
-def populateColumn(df, column, xpath1, xpath2, xpath3='', xpath4=''):
-    df = pd.DataFrame()
-    for i in range(0, num_players):
-        xpath_final1 = xpath1 + str(i) + xpath2
-        xpath_final2 = xpath3 + str(i) + xpath4
+def populateColumn(df, num_rows, xpath1, xpath2, xpath3='', xpath4='', opponent=False):
+    df = pd.DataFrame(index=range(num_rows), columns=range(1))
+    for i in range(0, num_rows):
+        row = i + 1
+        xpath_final1 = xpath1 + str(row) + xpath2
+        xpath_final2 = xpath3 + str(row) + xpath4
         content = driver.find_element_by_xpath(xpath_final1)
+        if (xpath3 != '' and xpath4 != '' and opponent == False):
+            if (content.get_attribute('class') == 'team-player__team active'):
+                df[0][i] = content.text
+            else:
+                content = driver.find_element_by_xpath(xpath_final2)
+                df[0][i] = content.text
+        elif (xpath3 != '' and xpath4 != '' and opponent == True):
+            if (content.get_attribute('class') == 'team-player__team '):
+                df[0][i] = content.text
+            else:
+                content = driver.find_element_by_xpath(xpath_final2)
+                df[0][i] = content.text
+        else:
+            df[0][i] = content.text
+    return df[0]
 
 
-# populate columns
-# skater_df['Name'] =
-populateColumn(skater_df, 'Name', name_xpath_1, name_xpath_2)
+# populate skater data
+skater_df['Name'] = populateColumn(
+    skater_df, num_skaters, name_xpath_1, name_xpath_2)
+skater_df['Position'] = populateColumn(
+    skater_df, num_skaters, position_xpath_1, position_xpath_2)
+skater_df['Team'] = populateColumn(
+    skater_df, num_skaters, team_xpath_1, team_xpath_2, team_xpath_3, team_xpath_4)
+skater_df['Opponent'] = populateColumn(
+    skater_df, num_skaters, team_xpath_1, team_xpath_2, team_xpath_3, team_xpath_4, opponent=True)
+skater_df['Projection'] = populateColumn(
+    skater_df, num_skaters, projection_xpath_1, projection_xpath_2)
+skater_df['Salary'] = populateColumn(
+    skater_df, num_skaters, salary_xpath_1, salary_xpath_2)
+skater_df['Value'] = populateColumn(
+    skater_df, num_skaters, value_xpath_1, value_xpath_2)
+skater_df['Shots'] = populateColumn(
+    skater_df, num_skaters, shots_xpath_1, shots_xpath_2)
+skater_df['Goals'] = populateColumn(
+    skater_df, num_skaters, goals_xpath_1, goals_xpath_2)
+skater_df['Assists'] = populateColumn(
+    skater_df, num_skaters, assists_xpath_1, assists_xpath_2)
+skater_df['Points'] = populateColumn(
+    skater_df, num_skaters, points_xpath_1, points_xpath_2)
+skater_df['PPG'] = populateColumn(
+    skater_df, num_skaters, ppg_xpath_1, ppg_xpath_2)
+skater_df['PPA'] = populateColumn(
+    skater_df, num_skaters, ppa_xpath_1, ppa_xpath_2)
+skater_df['+/-'] = populateColumn(
+    skater_df, num_skaters, plusminus_xpath_1, plusminus_xpath_2)
+skater_df['Blocks'] = populateColumn(
+    skater_df, num_skaters, blocks_xpath_1, blocks_xpath_2)
+skater_df['Minutes'] = populateColumn(
+    skater_df, num_skaters, minutes_xpath_1, minutes_xpath_2)
+skater_df['PIM'] = populateColumn(
+    skater_df, num_skaters, pim_xpath_1, pim_xpath_2)
 
 time.sleep(5)
 
