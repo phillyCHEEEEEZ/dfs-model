@@ -235,5 +235,5 @@ skater_df['PIM'] = populateColumn(
 
 time.sleep(5)
 
-# close
+# close browser
 driver.close()

@@ -66,5 +66,5 @@ download_button.click()
 
 time.sleep(5)
 
-# close
+# close browser
 driver.close()
