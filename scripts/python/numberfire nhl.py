@@ -42,6 +42,8 @@ driver = webdriver.Chrome(chromedriver, options=options)
 # navigate to login page
 driver.get('https://www.numberfire.com/account/login-google-plus')
 
+time.sleep(5)
+
 # log in
 username = driver.find_element_by_xpath(
     '//*[@id="identifierId"]')
