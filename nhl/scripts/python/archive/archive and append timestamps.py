@@ -4,6 +4,7 @@ import shutil
 
 # datetime var
 now = datetime.datetime.now()
+today = str(now.strftime('%Y-%m-%d'))
 timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
 # working directory and archive directory
@@ -20,7 +21,7 @@ def appendTimestampAndArchive(working_dir, archive_dir, filename, extension, tim
 
 
 # fantasycruncher
-filename = 'fanduel_NHL_2019-10-04_players'
+filename = 'fanduel_NHL_' + today + '_players'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir,
                           filename, extension, timestamp)
