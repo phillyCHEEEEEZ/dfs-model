@@ -25,7 +25,7 @@ chromedriver = (
 # configure options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\data\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True, }
 
