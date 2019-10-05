@@ -70,5 +70,5 @@ time.sleep(5)
 driver.close()
 
 # rename file
-os.rename('c:/dev/Python/Repos/dfs-model/data/rotowire-NHL-players.csv',
-          'c:/dev/Python/Repos/dfs-model/data/rotowire-fanduel-NHL-players.csv')
+os.rename('c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-NHL-players.csv',
+          'c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-fanduel-NHL-players.csv')
