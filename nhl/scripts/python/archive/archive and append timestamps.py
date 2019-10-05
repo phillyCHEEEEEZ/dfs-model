@@ -2,7 +2,7 @@ import datetime
 import os
 import shutil
 
-# datetime var
+# datetime vars
 now = datetime.datetime.now()
 today = str(now.strftime('%Y-%m-%d'))
 timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
