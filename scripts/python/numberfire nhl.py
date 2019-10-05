@@ -199,6 +199,8 @@ def populateColumn(df, num_rows, xpath1, xpath2, xpath3='', xpath4='', opponent=
     return df[0]
 
 
+time.sleep(5)
+
 # populate skater data
 skater_df['Name'] = populateColumn(
     skater_df, num_skaters, name_xpath_1, name_xpath_2)
