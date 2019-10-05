@@ -25,9 +25,10 @@ chromedriver = (
 # set options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\data\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nhl\data\\',
          'download.prompt_for_download': False,
-         'download.directory_upgrade': True, }
+         'download.directory_upgrade': True,
+         'profile.default_content_setting_values.automatic_downloads': 0}
 
 options.add_experimental_option('prefs', prefs)
 
