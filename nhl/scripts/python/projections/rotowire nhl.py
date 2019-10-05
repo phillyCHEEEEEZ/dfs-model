@@ -68,3 +68,7 @@ time.sleep(5)
 
 # close browser
 driver.close()
+
+# rename file
+os.rename('c:/dev/Python/Repos/dfs-model/data/rotowire-NHL-players.csv',
+          'c:/dev/Python/Repos/dfs-model/data/rotowire-fanduel-NHL-players.csv')
