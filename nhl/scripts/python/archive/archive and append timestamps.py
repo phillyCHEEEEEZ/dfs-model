@@ -33,7 +33,7 @@ appendTimestampAndArchive(working_dir, archive_dir,
                           filename, extension, timestamp)
 
 # numberfire
-filename = 'numberfire_fanduel_skaters'
+filename = 'numberfire_fanduel_all'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir,
                           filename, extension, timestamp)
