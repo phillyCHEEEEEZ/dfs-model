@@ -67,3 +67,12 @@ del agg_df['Projection']
 
 # average projections
 agg_df['Avg'] = round(agg_df[['FC', 'RW', 'NF']].mean(axis=1), 2)
+
+# export full CSV and custom FC projections upload CSV
+agg_df.to_csv(
+    'c:/dev/Python/Repos/dfs-model/nhl/data/aggregate_projections.csv',
+    index=False)
+
+agg_df[['Player', 'Avg']].to_csv(
+    'c:/dev/Python/Repos/dfs-model/nhl/data/fc_upload.csv',
+    index=False)
