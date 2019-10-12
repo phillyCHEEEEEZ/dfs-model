@@ -4,11 +4,11 @@ import shutil
 
 # datetime vars
 now = datetime.datetime.now()
+# now = now - datetime.timedelta(days=1)
+
 today = str(now.strftime('%Y-%m-%d'))
 timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
-# datetime adjust
-# now = now - datetime.timedelta(days=1)
 
 # working directory and archive directory
 working_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
