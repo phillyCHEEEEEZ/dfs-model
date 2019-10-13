@@ -2,6 +2,7 @@ import csv
 import datetime
 import pandas as pd
 import xlrd
+import datetime
 
 # datetime vars
 now = datetime.datetime.now()
@@ -27,8 +28,12 @@ agg_df = fc_df
 # clean up
 agg_df = agg_df[['Player', 'Pos', 'Team', 'Opp', 'Salary', 'FC Proj']]
 
+agg_df['Date'] = today
+
+agg_df = agg_df[['Player', 'Pos', 'Team', 'Opp', 'Salary', 'Date', 'FC Proj']]
+
 agg_df.columns = ['Player', 'Position', 'Team',
-                  'Opponent', 'Salary', 'FC']
+                  'Opponent', 'Salary', 'Date', 'FC']
 
 agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['@ '], value='')
 agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['vs '], value='')
