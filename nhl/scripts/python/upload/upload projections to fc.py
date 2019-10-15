@@ -1,3 +1,4 @@
+import time
 import os
 import pandas as pd
 import pyperclip
@@ -73,16 +74,30 @@ player_col = driver.find_element_by_xpath(
     '//*[@id="upload-proj-table"]/div[1]/div[1]/div/div[1]/table/tbody/tr[1]/td[1]')
 player_col.click()
 
-# populate names and projections
-for i in range(0, len(fc_upload_df) - 1):
-    actions = ActionChains(driver)
-    actions.send_keys(fc_upload_df['Player'][i])
-    actions.send_keys(Keys.TAB)
-    actions.send_keys(str(fc_upload_df['Avg'][i]))
-    actions.send_keys(Keys.ENTER)
-    actions.send_keys(Keys.LEFT)
-    actions.perform()
-    del actions
+# copy and past player names
+fc_upload_df['Player'].to_clipboard(index=False)
+
+actions = ActionChains(driver)
+actions.key_down(Keys.CONTROL)
+actions.send_keys('v')
+actions.key_up(Keys.CONTROL)
+actions.perform()
+del actions
+
+# select first cell in projection column
+projection_col = driver.find_element_by_xpath(
+    '//*[@id="upload-proj-table"]/div[1]/div[1]/div/div[1]/table/tbody/tr[1]/td[2]')
+projection_col.click()
+
+# copy and past projections
+fc_upload_df['Avg'].to_clipboard(index=False)
+
+actions = ActionChains(driver)
+actions.key_down(Keys.CONTROL)
+actions.send_keys('v')
+actions.key_up(Keys.CONTROL)
+actions.perform()
+del actions
 
 # click button to upload projections
 upload_projections_button = driver.find_element_by_xpath(
