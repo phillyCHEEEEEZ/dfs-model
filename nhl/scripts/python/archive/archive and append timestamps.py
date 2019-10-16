@@ -49,9 +49,9 @@ appendTimestampAndArchive(working_dir, archive_dir, nf_folder,
                           filename, extension, timestamp)
 
 # daily fantasy fuel
-filename = 'dff_fanduel_all.csv'
+filename = 'dff_fanduel_all'
 extension = 'csv'
-appendTimestampAndArchive(working_dir, archive_dir, nf_folder,
+appendTimestampAndArchive(working_dir, archive_dir, dff_folder,
                           filename, extension, timestamp)
 
 # aggregate
