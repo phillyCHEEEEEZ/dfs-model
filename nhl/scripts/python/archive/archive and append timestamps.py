@@ -18,6 +18,7 @@ archive_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/archive/'
 fc_folder = 'fantasy cruncher/'
 rw_folder = 'rotowire/'
 nf_folder = 'numberfire/'
+dff_folder = 'daily fantasy fuel/'
 agg_folder = 'aggregate/'
 
 
@@ -43,6 +44,12 @@ appendTimestampAndArchive(working_dir, archive_dir, rw_folder,
 
 # numberfire
 filename = 'numberfire_fanduel_all'
+extension = 'csv'
+appendTimestampAndArchive(working_dir, archive_dir, nf_folder,
+                          filename, extension, timestamp)
+
+# daily fantasy fuel
+filename = 'dff_fanduel_all.csv'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, nf_folder,
                           filename, extension, timestamp)
