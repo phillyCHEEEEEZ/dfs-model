@@ -104,7 +104,7 @@ upload_projections_button = driver.find_element_by_xpath(
     '//*[@id="import-proj"]')
 upload_projections_button.click()
 
-time.sleep(10)
+time.sleep(15)
 
 # close browser
 driver.close()
