@@ -84,6 +84,8 @@ actions.key_up(Keys.CONTROL)
 actions.perform()
 del actions
 
+time.sleep(2)
+
 # select first cell in projection column
 projection_col = driver.find_element_by_xpath(
     '//*[@id="upload-proj-table"]/div[1]/div[1]/div/div[1]/table/tbody/tr[1]/td[2]')
