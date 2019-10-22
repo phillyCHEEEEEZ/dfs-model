@@ -44,6 +44,8 @@ show_all = driver.find_element_by_xpath(
     '//*[@id="listings"]/div/li/span')
 show_all.click()
 
+time.sleep(5)
+
 # count number of players
 player_list = driver.find_element_by_id("listings")
 num_players = len(player_list.find_elements_by_tag_name("li")) - 2
