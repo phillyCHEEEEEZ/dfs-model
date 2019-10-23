@@ -53,7 +53,8 @@ login.click()
 time.sleep(5)
 
 # navigate to projections page
-driver.get('https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel')
+driver.get(
+    'https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel&slate=Main&type=main')
 
 # wait for download button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
