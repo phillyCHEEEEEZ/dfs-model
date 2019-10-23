@@ -74,6 +74,8 @@ player_col = driver.find_element_by_xpath(
     '//*[@id="upload-proj-table"]/div[1]/div[1]/div/div[1]/table/tbody/tr[1]/td[1]')
 player_col.click()
 
+time.sleep(2)
+
 # copy and past player names
 fc_upload_df['Player'].to_clipboard(index=False)
 
@@ -90,6 +92,8 @@ time.sleep(2)
 projection_col = driver.find_element_by_xpath(
     '//*[@id="upload-proj-table"]/div[1]/div[1]/div/div[1]/table/tbody/tr[1]/td[2]')
 projection_col.click()
+
+time.sleep(2)
 
 # copy and past projections
 fc_upload_df['Avg'].to_clipboard(index=False)
