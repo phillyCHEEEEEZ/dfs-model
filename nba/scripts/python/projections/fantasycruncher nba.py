@@ -25,7 +25,7 @@ chromedriver = (
 # set options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nhl\data\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nba\data\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True,
          'profile.default_content_setting_values.automatic_downloads': 0}
@@ -49,7 +49,7 @@ login = driver.find_element_by_id('submit')
 login.click()
 
 # navigate to projections page
-driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL')
+driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NBA')
 
 # wait for actions button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
