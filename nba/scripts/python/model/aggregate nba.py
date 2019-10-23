@@ -10,17 +10,19 @@ today = str(now.strftime('%Y-%m-%d'))
 timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
 # filename vars
-data_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
+data_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/'
 names_filename = 'static/names.xlsx'
-fc_filename = 'fanduel_NHL_' + today + '_players.csv'
-rw_filename = 'rotowire-fanduel-NHL-players.csv'
-nf_filename = 'numberfire_fanduel_all.csv'
-dff_filename = 'dff_fanduel_all.csv'
+fc_filename = 'fanduel_NBA_' + today + '_players.csv'
+rw_filename = 'rotowire-fanduel-NBA-players.csv'
+bm_filename = 'basketball_monster_fanduel.csv'
+nf_filename = 'numberfire_fanduel.csv'
+dff_filename = 'dff_fanduel.csv'
 
 # read CSVs
 names_df = pd.read_excel(data_dir + names_filename)
 fc_df = pd.read_csv(data_dir + fc_filename)
 rw_df = pd.read_csv(data_dir + rw_filename)
+bm_df = pd.read_csv(data_dir + bm_filename)
 nf_df = pd.read_csv(data_dir + nf_filename)
 dff_df = pd.read_csv(data_dir + dff_filename)
 
@@ -40,16 +42,8 @@ agg_df.columns = ['Player', 'Position', 'Team',
 agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['@ '], value='')
 agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['vs '], value='')
 
-agg_df['Team'] = agg_df['Team'].replace(regex=['NJ'], value='NJD')
-agg_df['Team'] = agg_df['Team'].replace(regex=['SJ'], value='SJS')
-agg_df['Team'] = agg_df['Team'].replace(regex=['TB'], value='TBL')
-
-agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['NJ'], value='NJD')
-agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['SJ'], value='SJS')
-agg_df['Opponent'] = agg_df['Opponent'].replace(regex=['TB'], value='TBL')
-
 # merge projections
-agg_df = agg_df.merge(names_df[['FC', 'RW', 'NF', 'DFF']],
+agg_df = agg_df.merge(names_df[['FC', 'RW', 'BM', 'NF', 'DFF']],
                       left_on='Player', right_on='FC', how='left')
 
 del agg_df['FC_y']
@@ -64,6 +58,14 @@ agg_df['RW'] = agg_df['FPTS']
 
 del agg_df['PLAYER']
 del agg_df['FPTS']
+
+# basketballmonster
+agg_df = agg_df.merge(bm_df[['Player', 'Value']],
+                      left_on='Player', right_on='Player', how='left')
+
+agg_df['BM'] = agg_df['Value']
+
+del agg_df['Value']
 
 # numberfire
 agg_df = agg_df.merge(nf_df[['Name', 'Projection']],
@@ -84,13 +86,13 @@ del agg_df['Name']
 del agg_df['Projection']
 
 # average projections
-agg_df['Avg'] = round(agg_df[['FC', 'RW', 'NF', 'DFF']].mean(axis=1), 2)
+agg_df['Avg'] = round(agg_df[['FC', 'RW', 'BM', 'NF', 'DFF']].mean(axis=1), 2)
 
 # export full CSV and custom FC projections upload CSV
 agg_df.to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/aggregate_projections.csv',
+    'c:/dev/Python/Repos/dfs-model/nba/data/aggregate_projections.csv',
     index=False)
 
 agg_df[['Player', 'Avg']].to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/fc_upload.csv',
+    'c:/dev/Python/Repos/dfs-model/nba/data/fc_upload.csv',
     index=False)

@@ -25,7 +25,7 @@ chromedriver = (
 # configure options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nhl\data\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nba\data\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True, }
 
@@ -35,7 +35,7 @@ options.add_experimental_option('prefs', prefs)
 driver = webdriver.Chrome(chromedriver, options=options)
 
 # navigate to projections page
-driver.get('http://www.dailyfantasyfuel.com/nhl?platform=fd')
+driver.get('http://www.dailyfantasyfuel.com/nba?platform=fd')
 
 time.sleep(5)
 
@@ -55,7 +55,7 @@ num_players = len(player_list.find_elements_by_tag_name("li")) - 2
 
 # xpath strings
 name_xpath_1 = '//*[@id="listings"]/li['
-name_xpath_2 = ']/div/div[1]/div[7]/span[1]'
+name_xpath_2 = ']/div/div[1]/div[6]/span[1]'
 
 position_xpath_1 = '//*[@id="listings"]/li['
 position_xpath_2 = ']/div/div[1]/div[2]/div'
@@ -74,9 +74,6 @@ salary_xpath_2 = ']/div/div[2]/div[2]/div[5]'
 
 value_xpath_1 = '//*[@id="listings"]/li['
 value_xpath_2 = ']/div/div[2]/div[2]/div[2]/span[1]'
-
-ppunit_xpath_1 = '//*[@id="listings"]/li['
-ppunit_xpath_2 = ']/div/div[1]/div[6]/div'
 
 vegas_xpath_1 = '//*[@id="listings"]/li['
 vegas_xpath_2 = ']/div/div[1]/div[5]/div'
@@ -100,9 +97,9 @@ def populateColumn(df, num_rows, xpath1, xpath2, projection=False):
 
 
 # initialize data frame
-dff_df = pd.DataFrame(index=range(num_players), columns=range(10))
+dff_df = pd.DataFrame(index=range(num_players), columns=range(9))
 dff_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection',
-                  'Salary', 'Value', 'PP Unit', 'Vegas', 'DvP']
+                  'Salary', 'Value', 'Vegas', 'DvP']
 
 time.sleep(5)
 
@@ -121,8 +118,6 @@ dff_df['Salary'] = populateColumn(
     dff_df, num_players, salary_xpath_1, salary_xpath_2)
 dff_df['Value'] = populateColumn(
     dff_df, num_players, value_xpath_1, value_xpath_2)
-dff_df['PP Unit'] = populateColumn(
-    dff_df, num_players, ppunit_xpath_1, ppunit_xpath_2)
 dff_df['Vegas'] = populateColumn(
     dff_df, num_players, vegas_xpath_1, vegas_xpath_2)
 dff_df['DvP'] = populateColumn(
@@ -135,5 +130,5 @@ driver.close()
 
 # export
 dff_df.to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/dff_fanduel_all.csv',
+    'c:/dev/Python/Repos/dfs-model/nba/data/dff_fanduel.csv',
     index=False)

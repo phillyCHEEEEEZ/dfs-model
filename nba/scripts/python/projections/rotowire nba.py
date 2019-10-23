@@ -25,7 +25,7 @@ chromedriver = (
 # configure options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nhl\data\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nba\data\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True, }
 
@@ -53,15 +53,16 @@ login.click()
 time.sleep(5)
 
 # navigate to projections page
-driver.get('https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel')
+driver.get(
+    'https://www.rotowire.com/daily/nba/value-report.php?site=FanDuel&slate=Main&type=main')
 
 # wait for download button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
-    (By.XPATH, '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')))
+    (By.XPATH, '//*[@id="NBAPlayers"]/div[3]/div[2]/button[2]')))
 
 # click download button
 download_button = driver.find_element_by_xpath(
-    '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
+    '//*[@id="NBAPlayers"]/div[3]/div[2]/button[2]')
 download_button.click()
 
 time.sleep(5)
@@ -70,5 +71,5 @@ time.sleep(5)
 driver.close()
 
 # rename file
-os.rename('c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-NHL-players.csv',
-          'c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-fanduel-NHL-players.csv')
+os.rename('c:/dev/Python/Repos/dfs-model/nba/data/rotowire-NBA-players.csv',
+          'c:/dev/Python/Repos/dfs-model/nba/data/rotowire-fanduel-NBA-players.csv')

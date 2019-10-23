@@ -30,7 +30,7 @@ chromedriver = (
 # configure options
 options = webdriver.ChromeOptions()
 
-prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nhl\data\\',
+prefs = {'download.default_directory': 'c:\dev\Python\Repos\dfs-model\\nba\data\\',
          'download.prompt_for_download': False,
          'download.directory_upgrade': True, }
 
@@ -66,21 +66,14 @@ next_button.click()
 time.sleep(5)
 
 # determine number of players
-skaters_url = requests.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters').text
+players_url = requests.get(
+    'https://www.numberfire.com/nba/daily-fantasy/daily-basketball-projections').text
 
-goalie_url = requests.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/goalies').text
+player_names = []
 
-skater_names = []
-goalie_names = []
+player_soup = BeautifulSoup(players_url, 'lxml')
 
-skater_soup = BeautifulSoup(skaters_url, 'lxml')
-goalie_soup = BeautifulSoup(goalie_url, 'lxml')
-
-skater_table = skater_soup.find(
-    'table', class_='stat-table fixed-head')
-goalie_table = goalie_soup.find(
+player_table = player_soup.find(
     'table', class_='stat-table fixed-head')
 
 html_dict = {
@@ -98,103 +91,51 @@ def scrapeData(dictionary, soup, index):
                 list(dictionary[list(dictionary.keys())[index]])[1])[0]])
 
 
-skater_names = scrapeData(html_dict, skater_table, 0)
-goalie_names = scrapeData(html_dict, goalie_table, 0)
+player_names = scrapeData(html_dict, player_table, 0)
 
-num_skaters = len(skater_names)
-num_goalies = len(goalie_names)
-num_players = num_skaters + num_goalies
+num_players = len(player_names)
 
 # xpath strings
-# skaters
-skater_name_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_name_xpath_2 = ']/td[1]/span/a[2]'
+name_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+name_xpath_2 = ']/td[1]/span/a[2]'
 
-skater_position_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_position_xpath_2 = ']/td[1]/span/span'
+position_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+position_xpath_2 = ']/td[1]/span/span'
 
-skater_team_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_team_xpath_2 = ']/td[1]/span/div/span[1]'
-skater_team_xpath_3 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_team_xpath_4 = ']/td[1]/span/div/span[2]'
+team_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+team_xpath_2 = ']/td[1]/span/div/span[1]'
+team_xpath_3 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+team_xpath_4 = ']/td[1]/span/div/span[2]'
 
-skater_projection_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_projection_xpath_2 = ']/td[2]'
+projection_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+projection_xpath_2 = ']/td[2]'
 
-skater_salary_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_salary_xpath_2 = ']/td[3]'
+salary_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+salary_xpath_2 = ']/td[3]'
 
-skater_value_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_value_xpath_2 = ']/td[4]'
+value_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+value_xpath_2 = ']/td[4]'
 
-skater_shots_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_shots_xpath_2 = ']/td[5]'
+minutes_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+minutes_xpath_2 = ']/td[5]'
 
-skater_goals_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_goals_xpath_2 = ']/td[6]'
+points_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+points_xpath_2 = ']/td[6]'
 
-skater_assists_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_assists_xpath_2 = ']/td[7]'
+rebounds_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+rebounds_xpath_2 = ']/td[7]'
 
-skater_points_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_points_xpath_2 = ']/td[8]'
+assists_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+assists_xpath_2 = ']/td[8]'
 
-skater_ppg_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_ppg_xpath_2 = ']/td[9]'
+steals_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+steals_xpath_2 = ']/td[9]'
 
-skater_ppa_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_ppa_xpath_2 = ']/td[10]'
+blocks_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+blocks_xpath_2 = ']/td[10]'
 
-skater_plusminus_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_plusminus_xpath_2 = ']/td[11]'
-
-skater_blocks_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_blocks_xpath_2 = ']/td[12]'
-
-skater_minutes_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_minutes_xpath_2 = ']/td[13]'
-
-skater_pim_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-skater_pim_xpath_2 = ']/td[14]'
-
-# goalies
-goalie_name_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_name_xpath_2 = ']/td[1]/span/a[2]'
-
-goalie_position_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_position_xpath_2 = ']/td[1]/span/span'
-
-goalie_team_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_team_xpath_2 = ']/td[1]/span/div/span[1]'
-goalie_team_xpath_3 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_team_xpath_4 = ']/td[1]/span/div/span[2]'
-
-goalie_projection_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_projection_xpath_2 = ']/td[2]'
-
-goalie_salary_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_salary_xpath_2 = ']/td[3]'
-
-goalie_value_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_value_xpath_2 = ']/td[4]'
-
-goalie_goals_against_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_goals_against_xpath_2 = ']/td[5]'
-
-goalie_shots_against_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_shots_against_xpath_2 = ']/td[6]'
-
-goalie_saves_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_saves_xpath_2 = ']/td[7]'
-
-goalie_shutouts_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_shutouts_xpath_2 = ']/td[8]'
-
-goalie_wins_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_wins_xpath_2 = ']/td[9]'
-
-goalie_minutes_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
-goalie_minutes_xpath_2 = ']/td[10]'
+turnovers_xpath_1 = '/html/body/main/div[2]/div[2]/section/div[4]/div[2]/table/tbody/tr['
+turnovers_xpath_2 = ']/td[11]'
 
 
 # function to populate columns
@@ -223,9 +164,9 @@ def populateColumn(df, num_rows, xpath1, xpath2, xpath3='', xpath4='', opponent=
 
 
 # create data frames
-# navigate to skater projections page
+# navigate to projections page
 driver.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters')
+    'https://www.numberfire.com/nba/daily-fantasy/daily-basketball-projections')
 
 # select fanduel from dropdown list
 dropdown = driver.find_element_by_class_name('custom-drop__current')
@@ -235,116 +176,48 @@ dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
 dropdown_fanduel.click()
 
 # initialize data frame
-skater_df = pd.DataFrame(index=range(num_skaters), columns=range(17))
-skater_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
-                     'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM']
+player_df = pd.DataFrame(index=range(num_players), columns=range(14))
+player_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
+                     'Minutes', 'Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'Turnovers']
 
 time.sleep(5)
 
-# populate skater data
-skater_df['Name'] = populateColumn(
-    skater_df, num_skaters, skater_name_xpath_1, skater_name_xpath_2)
-skater_df['Position'] = populateColumn(
-    skater_df, num_skaters, skater_position_xpath_1, skater_position_xpath_2)
-skater_df['Team'] = populateColumn(
-    skater_df, num_skaters, skater_team_xpath_1, skater_team_xpath_2, skater_team_xpath_3, skater_team_xpath_4)
-skater_df['Opponent'] = populateColumn(
-    skater_df, num_skaters, skater_team_xpath_1, skater_team_xpath_2, skater_team_xpath_3, skater_team_xpath_4, opponent=True)
-skater_df['Projection'] = populateColumn(
-    skater_df, num_skaters, skater_projection_xpath_1, skater_projection_xpath_2)
-skater_df['Salary'] = populateColumn(
-    skater_df, num_skaters, skater_salary_xpath_1, skater_salary_xpath_2)
-skater_df['Value'] = populateColumn(
-    skater_df, num_skaters, skater_value_xpath_1, skater_value_xpath_2)
-skater_df['Shots'] = populateColumn(
-    skater_df, num_skaters, skater_shots_xpath_1, skater_shots_xpath_2)
-skater_df['Goals'] = populateColumn(
-    skater_df, num_skaters, skater_goals_xpath_1, skater_goals_xpath_2)
-skater_df['Assists'] = populateColumn(
-    skater_df, num_skaters, skater_assists_xpath_1, skater_assists_xpath_2)
-skater_df['Points'] = populateColumn(
-    skater_df, num_skaters, skater_points_xpath_1, skater_points_xpath_2)
-skater_df['PPG'] = populateColumn(
-    skater_df, num_skaters, skater_ppg_xpath_1, skater_ppg_xpath_2)
-skater_df['PPA'] = populateColumn(
-    skater_df, num_skaters, skater_ppa_xpath_1, skater_ppa_xpath_2)
-skater_df['+/-'] = populateColumn(
-    skater_df, num_skaters, skater_plusminus_xpath_1, skater_plusminus_xpath_2)
-skater_df['Blocks'] = populateColumn(
-    skater_df, num_skaters, skater_blocks_xpath_1, skater_blocks_xpath_2)
-skater_df['Minutes'] = populateColumn(
-    skater_df, num_skaters, skater_minutes_xpath_1, skater_minutes_xpath_2)
-skater_df['PIM'] = populateColumn(
-    skater_df, num_skaters, skater_pim_xpath_1, skater_pim_xpath_2)
-
-time.sleep(5)
-
-# navigate to goalie projections page
-driver.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/goalies')
-
-# select fanduel from dropdown list
-dropdown = driver.find_element_by_class_name('custom-drop__current')
-dropdown.click()
-
-dropdown_fanduel = driver.find_element_by_xpath('//li[@data-value="3"]')
-dropdown_fanduel.click()
-
-# initialize data frame
-goalie_df = pd.DataFrame(index=range(num_goalies), columns=range(13))
-goalie_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
-                     'Goals Against', 'Shots Against', 'Saves', 'Shutouts', 'Wins', 'Minutes']
-
-time.sleep(5)
-
-# populate goalie data
-goalie_df['Name'] = populateColumn(
-    goalie_df, num_goalies, goalie_name_xpath_1, goalie_name_xpath_2)
-goalie_df['Position'] = 'G'
-goalie_df['Team'] = populateColumn(
-    goalie_df, num_goalies, goalie_team_xpath_1, goalie_team_xpath_2, goalie_team_xpath_3, goalie_team_xpath_4)
-goalie_df['Opponent'] = populateColumn(
-    goalie_df, num_goalies, goalie_team_xpath_1, goalie_team_xpath_2, goalie_team_xpath_3, goalie_team_xpath_4, opponent=True)
-goalie_df['Projection'] = populateColumn(
-    goalie_df, num_goalies, goalie_projection_xpath_1, goalie_projection_xpath_2)
-goalie_df['Salary'] = populateColumn(
-    goalie_df, num_goalies, goalie_salary_xpath_1, goalie_salary_xpath_2)
-goalie_df['Value'] = populateColumn(
-    goalie_df, num_goalies, goalie_value_xpath_1, goalie_value_xpath_2)
-goalie_df['Goals Against'] = populateColumn(
-    goalie_df, num_goalies, goalie_goals_against_xpath_1, goalie_goals_against_xpath_2)
-goalie_df['Shots Against'] = populateColumn(
-    goalie_df, num_goalies, goalie_shots_against_xpath_1, goalie_shots_against_xpath_2)
-goalie_df['Saves'] = populateColumn(
-    goalie_df, num_goalies, goalie_saves_xpath_1, goalie_saves_xpath_2)
-goalie_df['Shutouts'] = populateColumn(
-    goalie_df, num_goalies, goalie_shutouts_xpath_1, goalie_shutouts_xpath_2)
-goalie_df['Wins'] = populateColumn(
-    goalie_df, num_goalies, goalie_wins_xpath_1, goalie_wins_xpath_2)
-goalie_df['Minutes'] = populateColumn(
-    goalie_df, num_goalies, goalie_minutes_xpath_1, goalie_minutes_xpath_2)
+# populate data
+player_df['Name'] = populateColumn(
+    player_df, num_players, name_xpath_1, name_xpath_2)
+player_df['Position'] = populateColumn(
+    player_df, num_players, position_xpath_1, position_xpath_2)
+player_df['Team'] = populateColumn(
+    player_df, num_players, team_xpath_1, team_xpath_2, team_xpath_3, team_xpath_4)
+player_df['Opponent'] = populateColumn(
+    player_df, num_players, team_xpath_1, team_xpath_2, team_xpath_3, team_xpath_4, opponent=True)
+player_df['Projection'] = populateColumn(
+    player_df, num_players, projection_xpath_1, projection_xpath_2)
+player_df['Salary'] = populateColumn(
+    player_df, num_players, salary_xpath_1, salary_xpath_2)
+player_df['Value'] = populateColumn(
+    player_df, num_players, value_xpath_1, value_xpath_2)
+player_df['Minutes'] = populateColumn(
+    player_df, num_players, minutes_xpath_1, minutes_xpath_2)
+player_df['Points'] = populateColumn(
+    player_df, num_players, points_xpath_1, points_xpath_2)
+player_df['Rebounds'] = populateColumn(
+    player_df, num_players, rebounds_xpath_1, rebounds_xpath_2)
+player_df['Assists'] = populateColumn(
+    player_df, num_players, assists_xpath_1, assists_xpath_2)
+player_df['Steals'] = populateColumn(
+    player_df, num_players, steals_xpath_1, steals_xpath_2)
+player_df['Blocks'] = populateColumn(
+    player_df, num_players, blocks_xpath_1, blocks_xpath_2)
+player_df['Turnovers'] = populateColumn(
+    player_df, num_players, turnovers_xpath_1, turnovers_xpath_2)
 
 time.sleep(5)
 
 # close browser
 driver.close()
 
-# combine skater and goalie data frames and clean up
-merge_df = skater_df.append(goalie_df)
-
-merge_df = merge_df[['Name', 'Position', 'Team', 'Opponent', 'Projection', 'Salary', 'Value',
-                     'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes',
-                     'PIM', 'Goals Against', 'Shots Against', 'Saves', 'Shutouts', 'Wins']]
-
-merge_df['Salary'] = merge_df['Salary'].replace(
-    '[\$,]', '', regex=True).astype(float)
-
-merge_df = merge_df.sort_values(
-    by=['Salary', 'Name'], ascending=[False, True])
-
-merge_df = merge_df.reset_index(drop=True)
-
 # export
-merge_df.to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/numberfire_fanduel_all.csv',
+player_df.to_csv(
+    'c:/dev/Python/Repos/dfs-model/nba/data/numberfire_fanduel.csv',
     index=False)

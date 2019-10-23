@@ -11,12 +11,13 @@ timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
 
 # working directory and archive directory
-working_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
-archive_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/archive/'
+working_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/'
+archive_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/archive/'
 
 # folders
 fc_folder = 'fantasy cruncher/'
 rw_folder = 'rotowire/'
+bm_folder = 'basketball monster/'
 nf_folder = 'numberfire/'
 dff_folder = 'daily fantasy fuel/'
 agg_folder = 'aggregate/'
@@ -31,25 +32,31 @@ def appendTimestampAndArchive(working_dir, archive_dir, folder, filename, extens
 
 
 # fantasycruncher
-filename = 'fanduel_NHL_' + today + '_players'
+filename = 'fanduel_NBA_' + today + '_players'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, fc_folder,
                           filename, extension, timestamp)
 
 # rotowire
-filename = 'rotowire-fanduel-NHL-players'
+filename = 'rotowire-fanduel-NBA-players'
+extension = 'csv'
+appendTimestampAndArchive(working_dir, archive_dir, rw_folder,
+                          filename, extension, timestamp)
+
+# basketball monster
+filename = 'basketball_monster_fanduel'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, rw_folder,
                           filename, extension, timestamp)
 
 # numberfire
-filename = 'numberfire_fanduel_all'
+filename = 'numberfire_fanduel'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, nf_folder,
                           filename, extension, timestamp)
 
 # daily fantasy fuel
-filename = 'dff_fanduel_all'
+filename = 'dff_fanduel'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, dff_folder,
                           filename, extension, timestamp)
