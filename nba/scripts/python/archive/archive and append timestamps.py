@@ -46,7 +46,7 @@ appendTimestampAndArchive(working_dir, archive_dir, rw_folder,
 # basketball monster
 filename = 'basketball_monster_fanduel'
 extension = 'csv'
-appendTimestampAndArchive(working_dir, archive_dir, rw_folder,
+appendTimestampAndArchive(working_dir, archive_dir, bm_folder,
                           filename, extension, timestamp)
 
 # numberfire
