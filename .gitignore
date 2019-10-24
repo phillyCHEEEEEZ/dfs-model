@@ -1,4 +1,9 @@
+# batch log files
+*.log
+
+# env vars
 .env
 
+# excel files
 *.csv
 *.xlsx
