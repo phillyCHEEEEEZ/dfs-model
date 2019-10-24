@@ -79,6 +79,8 @@ time.sleep(2)
 # copy and past player names
 fc_upload_df['Player'].to_clipboard(index=False)
 
+time.sleep(2)
+
 actions = ActionChains(driver)
 actions.key_down(Keys.CONTROL)
 actions.send_keys('v')
@@ -98,12 +100,16 @@ time.sleep(2)
 # copy and past projections
 fc_upload_df['Avg'].to_clipboard(index=False)
 
+time.sleep(2)
+
 actions = ActionChains(driver)
 actions.key_down(Keys.CONTROL)
 actions.send_keys('v')
 actions.key_up(Keys.CONTROL)
 actions.perform()
 del actions
+
+time.sleep(2)
 
 # click button to upload projections
 upload_projections_button = driver.find_element_by_xpath(
