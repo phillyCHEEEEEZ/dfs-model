@@ -60,13 +60,11 @@ time.sleep(5)
 driver.get(
     'https://basketballmonster.com/Daily.aspx')
 
-# wait for fanduel button to render
-WebDriverWait(driver, 5).until(EC.presence_of_element_located(
-    (By.XPATH, '//*[@id="form1"]/div[5]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div/input')))
+time.sleep(5)
 
 # click fanduel button
 fanduel_button = driver.find_element_by_xpath(
-    '//*[@id="form1"]/div[5]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div/input')
+    '//*[@id="form1"]/div[3]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div')
 fanduel_button.click()
 
 # wait for download button to render
