@@ -1,5 +1,6 @@
 import time
 import os
+import datetime
 import pandas as pd
 import pyperclip
 
@@ -14,6 +15,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# datetime vars
+now = datetime.datetime.now()
+today = str(now.strftime('%Y-%m-%d'))
 
 # load env vars
 load_dotenv()
@@ -56,7 +61,7 @@ login = driver.find_element_by_id('submit')
 login.click()
 
 # navigate to projections page
-driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL')
+driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL/' + today)
 
 # wait for actions button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
