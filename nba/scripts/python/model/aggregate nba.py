@@ -11,7 +11,7 @@ timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
 # filename vars
 data_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/'
-names_filename = 'static/names.xlsx'
+names_filename = 'master/names.xlsx'
 fc_filename = 'fanduel_NBA_' + today + '_players.csv'
 rw_filename = 'rotowire-fanduel-NBA-players.csv'
 bm_filename = 'basketball_monster_fanduel.csv'
