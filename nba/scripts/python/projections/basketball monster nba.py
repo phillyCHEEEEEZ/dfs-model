@@ -62,10 +62,17 @@ driver.get(
 
 time.sleep(5)
 
+
 # click fanduel button
-fanduel_button = driver.find_element_by_xpath(
-    '//*[@id="form1"]/div[4]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div')
-fanduel_button.click()
+try:
+    fanduel_button = driver.find_element_by_xpath(
+        '//*[@id="form1"]/div[3]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div/input')
+    fanduel_button.click()
+except:
+    fanduel_button = driver.find_element_by_xpath(
+        '//*[@id="form1"]/div[4]/div[2]/table/tbody/tr/td[4]/table/tbody/tr[2]/td[1]/div/input')
+    fanduel_button.click()
+
 
 # wait for download button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
@@ -94,7 +101,7 @@ timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 
 # filename vars
 data_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/'
-names_filename = 'static/names.xlsx'
+names_filename = 'master/names.xlsx'
 bm_stats_filename = 'Export_' + today + '.csv'
 bm_projections_filename = 'ValuesExport_' + today + '.csv'
 
