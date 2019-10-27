@@ -69,7 +69,7 @@ print("RMSE: %f" % (rmse))
 # plot feature importance
 xgb.plot_importance(xg_reg)
 plt.rcParams['figure.figsize'] = [5, 5]
-plt.show()
+# plt.show()
 
 
 ####### k-fold cross validation #######
