@@ -74,7 +74,7 @@ plt.rcParams['figure.figsize'] = [5, 5]
 
 ####### k-fold cross validation #######
 # create dictionary for parameters
-params = {"objective": "reg:linear", 'colsample_bytree': 0.3, 'learning_rate': 0.1,
+params = {"objective": "reg:squarederror", 'colsample_bytree': 0.3, 'learning_rate': 0.1,
           'max_depth': 5, 'alpha': 10}
 
 # build 3-fold cross validation model
