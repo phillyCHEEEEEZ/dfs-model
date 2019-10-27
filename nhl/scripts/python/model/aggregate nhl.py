@@ -110,6 +110,6 @@ agg_df.to_csv(
     'c:/dev/Python/Repos/dfs-model/nhl/data/aggregate_projections.csv',
     index=False)
 
-agg_df[['Player', 'Avg']].to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/fc_upload.csv',
-    index=False)
+# agg_df[['Player', 'Avg']].to_csv(
+#     'c:/dev/Python/Repos/dfs-model/nhl/data/fc_upload.csv',
+#     index=False)
