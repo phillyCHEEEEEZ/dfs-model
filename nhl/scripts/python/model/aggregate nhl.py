@@ -96,6 +96,9 @@ agg_df.columns = ['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date',
 # average projections
 agg_df['Avg'] = round(agg_df[['FC', 'RW', 'NF', 'DFF']].mean(axis=1), 2)
 
+# actual projections placeholder
+agg_df['Actual'] = ""
+
 # fix goalie lines/pp lines
 for i in range(0, len(agg_df)):
     if agg_df['Position'][i] == "G":
