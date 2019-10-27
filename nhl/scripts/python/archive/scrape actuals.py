@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # datetime vars
 now = datetime.datetime.now()
 today = str(now.strftime('%Y-%m-%d'))
+yesterday = (now - timedelta(days=1)).strftime('%Y-%m-%d')
 
 # working directory and archive directory
 wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
@@ -57,7 +58,7 @@ login = driver.find_element_by_id('submit')
 login.click()
 
 # navigate to projections page
-driver.get('https://www.fantasycruncher.com/lineup-cruncher/fanduel/NHL')
+driver.get('https://www.fantasycruncher.com/lineup-rewind/fanduel/NHL/' + yesterday)
 
 # wait for actions button to render
 WebDriverWait(driver, 5).until(EC.presence_of_element_located(
@@ -78,5 +79,5 @@ time.sleep(5)
 driver.close()
 
 # rename file
-os.rename(wd + 'fanduel_NHL_' + today + '_players.csv',
-          wd + 'fanduel_NHL_projections.csv')
+os.rename(wd + 'fanduel_NHL_' + yesterday + '_players.csv',
+          wd + 'fanduel_NHL_actual.csv')
