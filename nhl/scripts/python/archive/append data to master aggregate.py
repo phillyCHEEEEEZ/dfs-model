@@ -41,6 +41,21 @@ del agg_daily_df['Actual Score']
 # append daily data to master
 agg_master_df = agg_master_df.append(agg_daily_df, ignore_index=True)
 
+
+# archive function
+def appendDateAndArchive(working_dir, archive_dir, folder, filename, extension, date=''):
+    src = wd + filename + '.' + extension
+    dst = ad + folder + filename + date + '.' + extension
+    shutil.copy(src, dst)
+    os.remove(src)
+
+
+# actual scores
+filename = 'fanduel_NHL_actual'
+extension = 'csv'
+appendDateAndArchive(wd, ad, fc_actual_folder,
+                     filename, extension, '_' + yesterday)
+
 # export
 agg_daily_df.to_csv(ad + agg_daily_folder + agg_daily_filename, index=False)
 agg_master_df.to_csv(md + 'aggregate_projections_all.csv', index=False)
