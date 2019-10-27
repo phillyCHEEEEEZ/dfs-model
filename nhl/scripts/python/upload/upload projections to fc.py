@@ -103,7 +103,10 @@ projection_col.click()
 time.sleep(2)
 
 # copy and past projections
-fc_upload_df['Avg'].to_clipboard(index=False)
+try:
+    fc_upload_df['Avg'].to_clipboard(index=False)
+except:
+    fc_upload_df['XGB'].to_clipboard(index=False)
 
 time.sleep(2)
 
