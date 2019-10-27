@@ -13,7 +13,7 @@ now = datetime.datetime.now()
 today = str(now.strftime('%Y-%m-%d'))
 
 # get working directory
-wd = os.getcwd()
+wd = 'c:/dev/Python/Repos/dfs-model/'
 
 # import data
 df_history = pd.read_csv(wd + '/nhl/data/master/aggregate_projections_all.csv')
