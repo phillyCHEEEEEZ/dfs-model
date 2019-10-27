@@ -99,5 +99,5 @@ df_today.to_csv(
     index=False)
 
 df_today[['Player', 'XGB']].to_csv(
-    wd + '/nhl/data/fc_upload_xgb.csv',
+    wd + '/nhl/data/fc_upload.csv',
     index=False)
