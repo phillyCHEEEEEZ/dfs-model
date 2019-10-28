@@ -117,8 +117,12 @@ bm_projections_df = pd.read_csv(data_dir + bm_projections_filename)
 bm_stats_df["full_name"] = bm_stats_df["first_name"] + \
     ' ' + bm_stats_df["last_name"]
 
-bm_projections_df = bm_projections_df.merge(
-    bm_stats_df, left_on='Player', right_on='full_name', how='left')
+try:
+    bm_projections_df = bm_projections_df.merge(
+        bm_stats_df, left_on='Player', right_on='full_name', how='left')
+except:
+    bm_projections_df = bm_projections_df.merge(
+        bm_stats_df, left_on='Name', right_on='full_name', how='left')
 
 del bm_projections_df["full_name"]
 
