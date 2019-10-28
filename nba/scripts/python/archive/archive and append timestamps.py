@@ -32,7 +32,7 @@ def appendTimestampAndArchive(working_dir, archive_dir, folder, filename, extens
 
 
 # fantasycruncher
-filename = 'fanduel_NBA_' + today + '_players'
+filename = 'fanduel_NBA_projections'
 extension = 'csv'
 appendTimestampAndArchive(working_dir, archive_dir, fc_folder,
                           filename, extension, timestamp)

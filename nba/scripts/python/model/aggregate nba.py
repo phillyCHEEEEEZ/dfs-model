@@ -12,7 +12,7 @@ timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 # filename vars
 data_dir = 'c:/dev/Python/Repos/dfs-model/nba/data/'
 names_filename = 'master/names.xlsx'
-fc_filename = 'fanduel_NBA_' + today + '_players.csv'
+fc_filename = 'fanduel_NBA_projections.csv'
 rw_filename = 'rotowire-fanduel-NBA-players.csv'
 bm_filename = 'basketball_monster_fanduel.csv'
 nf_filename = 'numberfire_fanduel.csv'
@@ -60,12 +60,17 @@ del agg_df['PLAYER']
 del agg_df['FPTS']
 
 # basketballmonster
-agg_df = agg_df.merge(bm_df[['Player', 'Value']],
-                      left_on='Player', right_on='Player', how='left')
+try:
+    agg_df = agg_df.merge(bm_df[['Player', 'Fpts']],
+                          left_on='Player', right_on='Player', how='left')
+except:
+    agg_df = agg_df.merge(bm_df[['Name', 'Fpts']],
+                          left_on='Player', right_on='Name', how='left')
 
-agg_df['BM'] = agg_df['Value']
+agg_df['BM'] = agg_df['Fpts']
 
-del agg_df['Value']
+del agg_df['Name']
+del agg_df['Fpts']
 
 # numberfire
 agg_df = agg_df.merge(nf_df[['Name', 'Projection']],
