@@ -16,7 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 now = datetime.datetime.now()
 today = str(now.strftime('%Y-%m-%d'))
 
-# working directory and archive directory
+# working directory
 wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 
 # load env vars
