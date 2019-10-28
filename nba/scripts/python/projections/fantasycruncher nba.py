@@ -1,5 +1,6 @@
 import time
 import os
+import datetime
 
 from dotenv import load_dotenv
 
@@ -10,6 +11,13 @@ from datetime import date, timedelta
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# datetime vars
+now = datetime.datetime.now()
+today = str(now.strftime('%Y-%m-%d'))
+
+# working directory
+wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 
 # load env vars
 load_dotenv()
@@ -68,3 +76,7 @@ time.sleep(5)
 
 # close browser
 driver.close()
+
+# rename file
+os.rename(wd + 'fanduel_NBA_' + today + '_players.csv',
+          wd + 'fanduel_NBA_projections.csv')
