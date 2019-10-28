@@ -56,6 +56,10 @@ extension = 'csv'
 appendDateAndArchive(wd, ad, fc_actual_folder,
                      filename, extension, '_' + yesterday)
 
+# remove NAs
+agg_daily_df.dropna(subset=['Actual'], inplace=True)
+agg_master_df.dropna(subset=['Actual'], inplace=True)
+
 # export
 agg_daily_df.to_csv(ad + agg_daily_folder + agg_daily_filename, index=False)
 agg_master_df.to_csv(md + 'aggregate_projections_all.csv', index=False)
