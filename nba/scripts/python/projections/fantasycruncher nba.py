@@ -17,7 +17,7 @@ now = datetime.datetime.now()
 today = str(now.strftime('%Y-%m-%d'))
 
 # working directory
-wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
+wd = 'c:/dev/Python/Repos/dfs-model/nba/data/'
 
 # load env vars
 load_dotenv()
