@@ -30,14 +30,26 @@ def appendDateAndArchive(working_dir, archive_dir, folder, filename, extension, 
     os.remove(src)
 
 
+# aggregate
+filename = 'aggregate_projections'
+extension = 'csv'
+appendDateAndArchive(wd, ad, agg_folder,
+                     filename, extension, '_' + today)
+
 # fantasycruncher
 filename = 'fanduel_NBA_projections'
 extension = 'csv'
 appendDateAndArchive(wd, ad, fc_folder,
                      filename, extension, '_' + today)
 
+# fc upload
+filename = 'fc_upload'
+extension = 'csv'
+appendDateAndArchive(wd, ad, fc_folder,
+                     filename, extension, '_' + today)
+
 # rotowire
-filename = 'rotowire-fanduel-NBA-players'
+filename = 'rotowire-fanduel-NBA-all'
 extension = 'csv'
 appendDateAndArchive(wd, ad, rw_folder,
                      filename, extension, '_' + today)
@@ -58,16 +70,4 @@ appendDateAndArchive(wd, ad, nf_folder,
 filename = 'dff_fanduel'
 extension = 'csv'
 appendDateAndArchive(wd, ad, dff_folder,
-                     filename, extension, '_' + today)
-
-# aggregate
-filename = 'aggregate_projections'
-extension = 'csv'
-appendDateAndArchive(wd, ad, agg_folder,
-                     filename, extension, '_' + today)
-
-# fc upload
-filename = 'fc_upload'
-extension = 'csv'
-appendDateAndArchive(wd, ad, fc_folder,
                      filename, extension, '_' + today)
