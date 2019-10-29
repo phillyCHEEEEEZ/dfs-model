@@ -56,13 +56,19 @@ del agg_df['FC_y']
 agg_df.rename(columns={'FC_x': 'FC'}, inplace=True)
 
 # rotowire
-agg_df = agg_df.merge(rw_df[['PLAYER', 'FPTS', 'LINE', 'PP', 'ML', 'O/U', 'SPRD', 'TM/P']],
+agg_df = agg_df.merge(rw_df[['PLAYER', 'FPTS', 'LINE', 'PP', 'ML', 'O/U', 'SPRD', 'TM/P', 'G', 'A', 'Pts', '+/-', 'PIM', 'SOG', 'GWG',
+                             'PPG', 'PPA', 'SHG', 'SHA', 'Hits', 'BS', 'W', 'L', 'OTL', 'GA', 'SA', 'SV', 'SV%', 'SO']],
                       left_on='RW', right_on='PLAYER', how='left')
 
 agg_df['RW'] = agg_df['FPTS']
 
 del agg_df['PLAYER']
 del agg_df['FPTS']
+
+agg_df.columns = ['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC', 'RW',
+                  'NF', 'DFF', 'EV', 'PP', 'ML', 'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW', 'PTS_RW',
+                  '+/-_RW', 'PIM_RW', 'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW', 'BS_RW',
+                  'W_RW', 'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW', 'SO_RW']
 
 # numberfire
 agg_df = agg_df.merge(nf_df[['Name', 'Projection', 'Shots', 'Goals', 'Assists', 'Points',
@@ -75,6 +81,14 @@ agg_df['NF'] = agg_df['Projection']
 del agg_df['Name']
 del agg_df['Projection']
 
+agg_df.columns = ['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC', 'RW',
+                  'NF', 'DFF', 'EV', 'PP', 'ML', 'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW',
+                  'PTS_RW', '+/-_RW', 'PIM_RW', 'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW',
+                  'SHG_RW', 'SHA_RW', 'Hits_RW', 'BS_RW', 'W_RW', 'L_RW', 'OTL_RW',
+                  'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW', 'SO_RW', 'SOG_NF', 'G_NF',
+                  'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF', '+/-_NF', 'BS_NF', 'MINS_NF', 'PIM_NF',
+                  'GA_NF', 'SA_NF', 'SV_NF', 'SO_NF', 'W_NF']
+
 # daily fantasy fuel
 agg_df = agg_df.merge(dff_df[['Name', 'Projection']],
                       left_on='DFF', right_on='Name', how='left')
@@ -83,21 +97,6 @@ agg_df['DFF'] = agg_df['Projection']
 
 del agg_df['Name']
 del agg_df['Projection']
-
-# reorder and rename columns
-agg_df.columns
-
-agg_df = agg_df[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'LINE',
-                 'PP', 'ML', 'O/U', 'SPRD', 'TM/P', 'Shots', 'Goals', 'Assists', 'Points',
-                 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM', 'Goals Against',
-                 'Shots Against', 'Saves', 'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']]
-
-agg_df.columns = ['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date',
-                  'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-                  'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
-                  'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against',
-                  'Saves', 'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']
-
 
 # average projections
 agg_df['Avg'] = round(agg_df[['FC', 'RW', 'NF', 'DFF']].mean(axis=1), 2)
@@ -108,8 +107,18 @@ agg_df['Actual'] = ""
 # fix goalie lines/pp lines
 for i in range(0, len(agg_df)):
     if agg_df['Position'][i] == "G":
-        agg_df['Line'][i] = 0
-        agg_df['PP Line'][i] = 0
+        agg_df['EV'][i] = 0
+        agg_df['PP'][i] = 0
+
+# reorder and rename columns
+agg_df.columns
+
+agg_df = agg_df[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC', 'RW', 'NF', 'DFF',
+                 'Avg', 'Actual', 'EV', 'PP', 'ML', 'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW', 'PTS_RW',
+                 '+/-_RW', 'PIM_RW', 'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW',
+                 'BS_RW', 'W_RW', 'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW', 'SO_RW',
+                 'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF', '+/-_NF', 'BS_NF', 'MINS_NF',
+                 'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF', 'SO_NF', 'W_NF']]
 
 # export full CSV and custom FC projections upload CSV
 agg_df.to_csv(
