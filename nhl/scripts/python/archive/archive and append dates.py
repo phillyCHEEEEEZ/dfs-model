@@ -42,7 +42,7 @@ appendDateAndArchive(wd, ad, fc_folder,
                      filename, extension, '_' + today)
 
 # rotowire
-filename = 'rotowire-fanduel-NHL-all.csv'
+filename = 'rotowire-fanduel-NHL-all'
 extension = 'csv'
 appendDateAndArchive(wd, ad, rw_folder,
                      filename, extension, '_' + today)
