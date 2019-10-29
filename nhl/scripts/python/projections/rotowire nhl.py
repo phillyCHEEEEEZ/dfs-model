@@ -79,7 +79,7 @@ time.sleep(2)
 
 # rename file
 os.rename(wd + 'rotowire-NHL-players.csv',
-          wd + 'rotowire-fanduel-NHL-players-projections.csv')
+          wd + 'rotowire-fanduel-NHL-fp-projections.csv')
 
 # navigate to skater stats projections pages
 driver.get(
@@ -98,7 +98,7 @@ time.sleep(2)
 
 # rename file
 os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
-          wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
+          wd + 'rotowire-fanduel-NHL-skaters-stat-projections.csv')
 
 # navigate to goalie stats projections pages
 driver.get(
@@ -117,16 +117,18 @@ time.sleep(2)
 
 # rename file
 os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
-          wd + 'rotowire-fanduel-NHL-goalies-stats.csv')
+          wd + 'rotowire-fanduel-NHL-goalies-stat-projections.csv')
 
 # close browser
 driver.close()
 
 ####### combine files ######
 # import data
-rw_proj_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-players-projections.csv')
-rw_skater_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
-rw_goalie_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-goalies-stats.csv')
+rw_proj_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-fp-projections.csv')
+rw_skater_df = pd.read_csv(
+    wd + 'rotowire-fanduel-NHL-skaters-stat-projections.csv')
+rw_goalie_df = pd.read_csv(
+    wd + 'rotowire-fanduel-NHL-goalies-stat-projections.csv')
 
 # fix headers
 rw_skater_df = rw_skater_df.rename(columns=rw_skater_df.iloc[0])
