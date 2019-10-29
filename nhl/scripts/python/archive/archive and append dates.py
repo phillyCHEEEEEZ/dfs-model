@@ -35,6 +35,12 @@ extension = 'csv'
 appendDateAndArchive(wd, ad, fc_folder,
                      filename, extension, '_' + today)
 
+# fc upload
+filename = 'fc_upload'
+extension = 'csv'
+appendDateAndArchive(wd, ad, fc_folder,
+                     filename, extension, '_' + today)
+
 # rotowire
 filename = 'rotowire-fanduel-NHL-all.csv'
 extension = 'csv'
@@ -57,10 +63,4 @@ appendDateAndArchive(wd, ad, dff_folder,
 filename = 'aggregate_projections'
 extension = 'csv'
 appendDateAndArchive(wd, ad, agg_folder,
-                     filename, extension, '_' + today)
-
-# fc upload
-filename = 'fc_upload'
-extension = 'csv'
-appendDateAndArchive(wd, ad, fc_folder,
                      filename, extension, '_' + today)

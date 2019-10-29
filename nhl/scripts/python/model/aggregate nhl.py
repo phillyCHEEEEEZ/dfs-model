@@ -120,6 +120,13 @@ agg_df = agg_df[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC
                  'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF', '+/-_NF', 'BS_NF', 'MINS_NF',
                  'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF', 'SO_NF', 'W_NF']]
 
+agg_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC', 'RW', 'NF', 'DFF',
+                  'Avg', 'Actual', 'EV', 'PP', 'ML', 'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW', 'PTS_RW',
+                  '+/-_RW', 'PIM_RW', 'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW',
+                  'BS_RW', 'W_RW', 'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW', 'SO_RW',
+                  'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF', '+/-_NF', 'BS_NF', 'MINS_NF',
+                  'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF', 'SO_NF', 'W_NF']
+
 # export full CSV and custom FC projections upload CSV
 agg_df.to_csv(
     'c:/dev/Python/Repos/dfs-model/nhl/data/aggregate_projections.csv',

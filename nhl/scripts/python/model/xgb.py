@@ -32,24 +32,31 @@ df = pd.get_dummies(df, prefix_sep="_", columns=cat_columns)
 df_preds = pd.get_dummies(df_preds, prefix_sep="_", columns=cat_columns)
 
 # drop columns
-columns_to_drop = ['Player', 'Team', 'Opponent', 'Date', 'Avg', ]
+columns_to_drop = ['Name', 'Team', 'Opponent', 'Date', 'Avg', ]
 df.drop(columns_to_drop, axis=1, inplace=True)
 
-columns_to_drop = ['Player', 'Team', 'Opponent', 'Date', 'Avg', 'Actual']
+columns_to_drop = ['Name', 'Team', 'Opponent', 'Date', 'Avg', 'Actual']
 df_preds.drop(columns_to_drop, axis=1, inplace=True)
 
+df.columns
 # reorder
-df = df[['Position_C', 'Position_W', 'Position_D', 'Position_G', 'Salary',
-         'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-         'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
-         'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against', 'Saves',
-         'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF', 'Actual']]
+df = df[['Position_C', 'Position_D', 'Position_G', 'Position_W',
+         'Salary', 'FC', 'RW', 'NF', 'DFF', 'EV', 'PP', 'ML',
+         'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW', 'PTS_RW', '+/-_RW', 'PIM_RW',
+         'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW',
+         'BS_RW', 'W_RW', 'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW',
+         'SO_RW', 'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF',
+         '+/-_NF', 'BS_NF', 'MINS_NF', 'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF',
+         'SO_NF', 'W_NF', 'Actual']]
 
-df_preds = df_preds[['Position_C', 'Position_W', 'Position_D', 'Position_G', 'Salary',
-                     'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-                     'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
-                     'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against', 'Saves',
-                     'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']]
+df_preds = df_preds[['Position_C', 'Position_D', 'Position_G', 'Position_W',
+                     'Salary', 'FC', 'RW', 'NF', 'DFF', 'EV', 'PP', 'ML',
+                     'O/U', 'Spread', 'TM/P', 'G_RW', 'A_RW', 'PTS_RW', '+/-_RW', 'PIM_RW',
+                     'SOG_RW', 'GWG_RW', 'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW',
+                     'BS_RW', 'W_RW', 'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW',
+                     'SO_RW', 'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF',
+                     '+/-_NF', 'BS_NF', 'MINS_NF', 'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF',
+                     'SO_NF', 'W_NF']]
 
 # drop NAs
 df.dropna(subset=['Actual'], inplace=True)
@@ -100,21 +107,23 @@ print((cv_results["test-rmse-mean"]).tail(1))
 
 # calculate projections for today's players
 preds_today = xg_reg.predict(df_preds)
-
+df_today.columns
 # add projections to aggreagted data
 df_today['XGB'] = preds_today
 df_today['XGB'] = df_today['XGB'].apply(lambda x: round(x, 2))
-df_today = df_today[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'Line',
-                     'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts', 'Shots',
-                     'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes',
-                     'PIM', 'Goals Against', 'Shots Against', 'Saves', 'Shutouts', 'Wins',
-                     'FC', 'RW', 'NF', 'DFF', 'Avg', 'XGB', 'Actual']]
+df_today = df_today[['Name', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'FC', 'RW', 'NF',
+                     'DFF', 'Avg', 'XGB', 'Actual', 'EV', 'PP', 'ML', 'O/U', 'Spread', 'TM/P',
+                     'G_RW', 'A_RW', 'PTS_RW', '+/-_RW', 'PIM_RW', 'SOG_RW', 'GWG_RW',
+                     'PPG_RW', 'PPA_RW', 'SHG_RW', 'SHA_RW', 'Hits_RW', 'BS_RW', 'W_RW',
+                     'L_RW', 'OTL_RW', 'GA_RW', 'SA_RW', 'SV_RW', 'SV%_RW', 'SO_RW',
+                     'SOG_NF', 'G_NF', 'A_NF', 'PTS_NF', 'PPG_NF', 'PPA_NF', '+/-_NF',
+                     'BS_NF', 'MINS_NF', 'PIM_NF', 'GA_NF', 'SA_NF', 'SV_NF', 'SO_NF', 'W_NF']]
 
 # export
 df_today.to_csv(
     wd + '/nhl/data/aggregate_projections.csv',
     index=False)
 
-df_today[['Player', 'XGB']].to_csv(
+df_today[['Name', 'XGB']].to_csv(
     wd + '/nhl/data/fc_upload.csv',
     index=False)

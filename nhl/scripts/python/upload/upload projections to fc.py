@@ -82,7 +82,7 @@ player_col.click()
 time.sleep(2)
 
 # copy and past player names
-fc_upload_df['Player'].to_clipboard(index=False)
+fc_upload_df['Name'].to_clipboard(index=False)
 
 time.sleep(2)
 
