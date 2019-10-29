@@ -1,6 +1,8 @@
 import time
 import os
 import datetime
+import csv
+import pandas as pd
 
 from dotenv import load_dotenv
 
@@ -119,3 +121,40 @@ os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
 
 # close browser
 driver.close()
+
+####### combine files ######
+# import data
+rw_proj_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-players-projections.csv')
+rw_skater_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
+rw_goalie_df = pd.read_csv(wd + 'rotowire-fanduel-NHL-goalies-stats.csv')
+
+# fix headers
+rw_skater_df = rw_skater_df.rename(columns=rw_skater_df.iloc[0])
+rw_skater_df = rw_skater_df.iloc[1:, ]
+rw_skater_df.columns = ['Player Name', 'Team', 'Pos', 'G', 'A', 'Pts', '+/-', 'PIM', 'SOG',
+                        'GWG', 'PPG', 'PPA', 'SHG', 'SHA', 'Hits', 'BS']
+
+rw_goalie_df = rw_goalie_df.rename(columns=rw_goalie_df.iloc[0])
+rw_goalie_df = rw_goalie_df.iloc[1:, ]
+
+# merge
+rw_all_df = rw_proj_df.merge(rw_skater_df[['Player Name', 'G', 'A', 'Pts', '+/-', 'PIM', 'SOG',
+                                           'GWG', 'PPG', 'PPA', 'SHG', 'SHA', 'Hits', 'BS']],
+                             left_on='PLAYER', right_on='Player Name', how='left')
+
+del rw_all_df['Player Name']
+
+rw_all_df = rw_all_df.merge(rw_goalie_df[['Player Name', 'W', 'L', 'OTL', 'GA',
+                                          'SA', 'SV', 'SV%', 'SO']],
+                            left_on='PLAYER', right_on='Player Name', how='left')
+
+del rw_all_df['Player Name']
+
+# export
+rw_all_df.to_csv(wd + 'rotowire-fanduel-NHL-all.csv',
+                 index=False)
+
+# delete files
+os.remove(wd + 'rotowire-fanduel-NHL-players-projections.csv')
+os.remove(wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
+os.remove(wd + 'rotowire-fanduel-NHL-goalies-stats.csv')

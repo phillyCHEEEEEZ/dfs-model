@@ -12,7 +12,7 @@ timestamp = str(now.strftime('_%Y-%m-%d_%H-%M-%S'))
 data_dir = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 names_filename = 'master/names.xlsx'
 fc_filename = 'fanduel_NHL_projections.csv'
-rw_filename = 'rotowire-fanduel-NHL-players.csv'
+rw_filename = 'rotowire-fanduel-NHL-all.csv'
 nf_filename = 'numberfire_fanduel_all.csv'
 dff_filename = 'dff_fanduel_all.csv'
 
