@@ -1,5 +1,6 @@
 import time
 import os
+import datetime
 
 from dotenv import load_dotenv
 
@@ -10,6 +11,13 @@ from datetime import date, timedelta
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# datetime vars
+now = datetime.datetime.now()
+today = str(now.strftime('%Y-%m-%d'))
+
+# working directory
+wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 
 # load env vars
 load_dotenv()
@@ -52,7 +60,7 @@ login.click()
 
 time.sleep(5)
 
-# navigate to projections page
+# navigate to fp projections page
 driver.get(
     'https://www.rotowire.com/daily/nhl/value-report.php?site=FanDuel&slate=Main&type=main')
 
@@ -65,11 +73,49 @@ download_button = driver.find_element_by_xpath(
     '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
 download_button.click()
 
-time.sleep(5)
+time.sleep(2)
+
+# rename file
+os.rename(wd + 'rotowire-NHL-players.csv',
+          wd + 'rotowire-fanduel-NHL-players-projections.csv')
+
+# navigate to skater stats projections pages
+driver.get(
+    'https://www.rotowire.com/hockey/projections-daily.php')
+
+# wait for download button to render
+WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+    (By.XPATH, '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')))
+
+# click download button
+download_button = driver.find_element_by_xpath(
+    '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')
+download_button.click()
+
+time.sleep(2)
+
+# rename file
+os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
+          wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
+
+# navigate to goalie stats projections pages
+driver.get(
+    'https://www.rotowire.com/hockey/projections-daily.php?pos=goalie')
+
+# wait for download button to render
+WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+    (By.XPATH, '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')))
+
+# click download button
+download_button = driver.find_element_by_xpath(
+    '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')
+download_button.click()
+
+time.sleep(2)
+
+# rename file
+os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
+          wd + 'rotowire-fanduel-NHL-goalies-stats.csv')
 
 # close browser
 driver.close()
-
-# rename file
-os.rename('c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-NHL-players.csv',
-          'c:/dev/Python/Repos/dfs-model/nhl/data/rotowire-fanduel-NHL-players.csv')
