@@ -17,7 +17,7 @@ wd = 'c:/dev/Python/Repos/dfs-model/'
 
 # import data
 df_history = pd.read_csv(
-    wd + '/nhl/data/master/aggregate_projections_all_TEST.csv')
+    wd + '/nhl/data/master/aggregate_projections_all.csv')
 df_today = pd.read_csv(wd + '/nhl/data/aggregate_projections.csv')
 
 # duplicate data frames
