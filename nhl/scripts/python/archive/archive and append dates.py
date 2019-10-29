@@ -29,6 +29,12 @@ def appendDateAndArchive(working_dir, archive_dir, folder, filename, extension, 
     os.remove(src)
 
 
+# aggregate
+filename = 'aggregate_projections'
+extension = 'csv'
+appendDateAndArchive(wd, ad, agg_folder,
+                     filename, extension, '_' + today)
+
 # fantasycruncher
 filename = 'fanduel_NHL_projections'
 extension = 'csv'
@@ -57,10 +63,4 @@ appendDateAndArchive(wd, ad, nf_folder,
 filename = 'dff_fanduel_all'
 extension = 'csv'
 appendDateAndArchive(wd, ad, dff_folder,
-                     filename, extension, '_' + today)
-
-# aggregate
-filename = 'aggregate_projections'
-extension = 'csv'
-appendDateAndArchive(wd, ad, agg_folder,
                      filename, extension, '_' + today)
