@@ -16,7 +16,8 @@ today = str(now.strftime('%Y-%m-%d'))
 wd = 'c:/dev/Python/Repos/dfs-model/'
 
 # import data
-df_history = pd.read_csv(wd + '/nhl/data/master/aggregate_projections_all.csv')
+df_history = pd.read_csv(
+    wd + '/nhl/data/master/aggregate_projections_all_TEST.csv')
 df_today = pd.read_csv(wd + '/nhl/data/aggregate_projections.csv')
 
 # duplicate data frames
@@ -40,11 +41,15 @@ df_preds.drop(columns_to_drop, axis=1, inplace=True)
 # reorder
 df = df[['Position_C', 'Position_W', 'Position_D', 'Position_G', 'Salary',
          'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-         'FC', 'RW', 'NF', 'DFF', 'Actual']]
+         'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
+         'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against', 'Saves',
+         'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF', 'Actual']]
 
 df_preds = df_preds[['Position_C', 'Position_W', 'Position_D', 'Position_G', 'Salary',
                      'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-                     'FC', 'RW', 'NF', 'DFF']]
+                     'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
+                     'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against', 'Saves',
+                     'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']]
 
 # drop NAs
 df.dropna(subset=['Actual'], inplace=True)
@@ -100,8 +105,10 @@ preds_today = xg_reg.predict(df_preds)
 df_today['XGB'] = preds_today
 df_today['XGB'] = df_today['XGB'].apply(lambda x: round(x, 2))
 df_today = df_today[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'Line',
-                     'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts', 'FC', 'RW',
-                     'NF', 'DFF', 'Avg', 'XGB', 'Actual']]
+                     'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts', 'Shots',
+                     'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes',
+                     'PIM', 'Goals Against', 'Shots Against', 'Saves', 'Shutouts', 'Wins',
+                     'FC', 'RW', 'NF', 'DFF', 'Avg', 'XGB', 'Actual']]
 
 # export
 df_today.to_csv(

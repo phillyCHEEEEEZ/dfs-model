@@ -66,7 +66,9 @@ del agg_df['PLAYER']
 del agg_df['FPTS']
 
 # numberfire
-agg_df = agg_df.merge(nf_df[['Name', 'Projection']],
+agg_df = agg_df.merge(nf_df[['Name', 'Projection', 'Shots', 'Goals', 'Assists', 'Points',
+                             'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM', 'Goals Against',
+                             'Shots Against', 'Saves', 'Shutouts', 'Wins']],
                       left_on='NF', right_on='Name', how='left')
 
 agg_df['NF'] = agg_df['Projection']
@@ -86,12 +88,17 @@ del agg_df['Projection']
 # reorder and rename columns
 agg_df.columns
 
-agg_df = agg_df[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date',
-                 'LINE', 'PP', 'ML', 'O/U', 'SPRD', 'TM/P', 'FC', 'RW', 'NF', 'DFF']]
+agg_df = agg_df[['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date', 'LINE',
+                 'PP', 'ML', 'O/U', 'SPRD', 'TM/P', 'Shots', 'Goals', 'Assists', 'Points',
+                 'PPG', 'PPA', '+/-', 'Blocks', 'Minutes', 'PIM', 'Goals Against',
+                 'Shots Against', 'Saves', 'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']]
 
 agg_df.columns = ['Player', 'Position', 'Team', 'Opponent', 'Salary', 'Date',
                   'Line', 'PP Line', 'Moneyline', 'Over/Under', 'Spread', 'Team Pts',
-                  'FC', 'RW', 'NF', 'DFF']
+                  'Shots', 'Goals', 'Assists', 'Points', 'PPG', 'PPA', '+/-',
+                  'Blocks', 'Minutes', 'PIM', 'Goals Against', 'Shots Against',
+                  'Saves', 'Shutouts', 'Wins', 'FC', 'RW', 'NF', 'DFF']
+
 
 # average projections
 agg_df['Avg'] = round(agg_df[['FC', 'RW', 'NF', 'DFF']].mean(axis=1), 2)
