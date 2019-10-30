@@ -32,10 +32,11 @@ fc_actual_df = pd.read_csv(wd + fc_actual_filename)
 
 # merge actual results
 agg_daily_df = agg_daily_df.merge(fc_actual_df[['Player', 'Actual Score']],
-                                  left_on='Player', right_on='Player', how='left')
+                                  left_on='Name', right_on='Player', how='left')
 
 # clean up
 agg_daily_df['Actual'] = agg_daily_df['Actual Score']
+del agg_daily_df['Player']
 del agg_daily_df['Actual Score']
 
 # append daily data to master
