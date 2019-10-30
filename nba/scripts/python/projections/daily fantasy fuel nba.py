@@ -37,7 +37,11 @@ driver = webdriver.Chrome(chromedriver, options=options)
 # navigate to projections page
 driver.get('http://www.dailyfantasyfuel.com/nba?platform=fd')
 
-time.sleep(5)
+time.sleep(2)
+
+# wait for button to expand player list
+WebDriverWait(driver, 30).until(EC.presence_of_element_located(
+    (By.XPATH, '//*[@id="listings"]/div/li/span')))
 
 # show all players
 show_all = driver.find_element_by_xpath(
