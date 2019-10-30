@@ -157,6 +157,6 @@ rw_all_df.to_csv(wd + 'rotowire-fanduel-NHL-all.csv',
                  index=False)
 
 # delete files
-os.remove(wd + 'rotowire-fanduel-NHL-players-projections.csv')
-os.remove(wd + 'rotowire-fanduel-NHL-skaters-stats.csv')
-os.remove(wd + 'rotowire-fanduel-NHL-goalies-stats.csv')
+os.remove(wd + 'rotowire-fanduel-NHL-fp-projections.csv')
+os.remove(wd + 'rotowire-fanduel-NHL-skaters-stat-projections.csv')
+os.remove(wd + 'rotowire-fanduel-NHL-goalies-stat-projections.csv')
