@@ -75,7 +75,7 @@ download_button = driver.find_element_by_xpath(
     '//*[@id="NHLPlayers"]/div[3]/div[2]/button[2]')
 download_button.click()
 
-time.sleep(2)
+time.sleep(5)
 
 # rename file
 os.rename(wd + 'rotowire-NHL-players.csv',
@@ -94,7 +94,7 @@ download_button = driver.find_element_by_xpath(
     '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')
 download_button.click()
 
-time.sleep(2)
+time.sleep(5)
 
 # rename file
 os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
@@ -105,15 +105,25 @@ driver.get(
     'https://www.rotowire.com/hockey/projections-daily.php?pos=goalie')
 
 # wait for download button to render
-WebDriverWait(driver, 5).until(EC.presence_of_element_located(
-    (By.XPATH, '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')))
+try:
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+        (By.XPATH, '//*[@id="NHLDailyProjections"]/div[2]/div[2]/button[2]')))
+except:
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+        (By.XPATH, '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')))
+
 
 # click download button
-download_button = driver.find_element_by_xpath(
-    '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')
-download_button.click()
+try:
+    download_button = driver.find_element_by_xpath(
+        '//*[@id="NHLDailyProjections"]/div[2]/div[2]/button[2]')
+    download_button.click()
+except:
+    download_button = driver.find_element_by_xpath(
+        '//*[@id="NHLDailyProjections"]/div[3]/div[2]/button[2]')
+    download_button.click()
 
-time.sleep(2)
+time.sleep(5)
 
 # rename file
 os.rename(wd + 'rotowire-nhl-projections-' + today + '.csv',
