@@ -102,7 +102,7 @@ projection_col.click()
 
 time.sleep(2)
 
-# copy and past projections
+# copy and paste projections
 try:
     fc_upload_df['Avg'].to_clipboard(index=False)
 except:
