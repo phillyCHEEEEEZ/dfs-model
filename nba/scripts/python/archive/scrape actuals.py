@@ -18,7 +18,7 @@ today = str(now.strftime('%Y-%m-%d'))
 yesterday = (now - timedelta(days=1)).strftime('%Y-%m-%d')
 
 # working directory and archive directory
-wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
+wd = 'c:/dev/Python/Repos/dfs-model/nba/data/'
 
 # load env vars
 load_dotenv()
