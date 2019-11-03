@@ -38,7 +38,6 @@ df.drop(columns_to_drop, axis=1, inplace=True)
 columns_to_drop = ['Name', 'Team', 'Opponent', 'Date', 'Avg', 'Actual']
 df_preds.drop(columns_to_drop, axis=1, inplace=True)
 
-df.columns
 # reorder
 df = df[['Position_C', 'Position_D', 'Position_G', 'Position_W',
          'Salary', 'FC', 'RW', 'NF', 'DFF', 'EV', 'PP', 'ML',
