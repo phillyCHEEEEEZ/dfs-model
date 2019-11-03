@@ -31,12 +31,13 @@ agg_daily_df = pd.read_csv(ad + agg_daily_folder + agg_daily_filename)
 fc_actual_df = pd.read_csv(wd + fc_actual_filename)
 
 # merge actual results
-agg_daily_df = agg_daily_df.merge(fc_actual_df[['Player', 'Actual Score']],
-                                  left_on='Player', right_on='Player', how='left')
+agg_daily_df = agg_daily_df.merge(fc_actual_df[['Player', 'Score']],
+                                  left_on='Name', right_on='Player', how='left')
 
 # clean up
-agg_daily_df['Actual'] = agg_daily_df['Actual Score']
-del agg_daily_df['Actual Score']
+agg_daily_df['Actual'] = agg_daily_df['Score']
+del agg_daily_df['Player']
+del agg_daily_df['Score']
 
 # append daily data to master
 agg_master_df = agg_master_df.append(agg_daily_df, ignore_index=True)
