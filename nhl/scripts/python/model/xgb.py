@@ -106,7 +106,7 @@ print((cv_results["test-rmse-mean"]).tail(1))
 
 # calculate projections for today's players
 preds_today = xg_reg.predict(df_preds)
-df_today.columns
+
 # add projections to aggreagted data
 df_today['XGB'] = preds_today
 df_today['XGB'] = df_today['XGB'].apply(lambda x: round(x, 2))
