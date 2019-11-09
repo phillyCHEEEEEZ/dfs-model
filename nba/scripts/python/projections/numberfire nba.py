@@ -465,4 +465,4 @@ time.sleep(2)
 driver.close()
 
 # export
-final_df.to_csv(wd + 'numberfire_fanduel_all.csv', index=False)
+final_df.to_csv(wd + 'numberfire_fanduel.csv', index=False)
