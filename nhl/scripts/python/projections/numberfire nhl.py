@@ -90,7 +90,7 @@ slate_list = []
 for li in slate_list_li:
     if '@' in li.text:
         print('single game slate, skipping')
-    elif '3-Man Challenge':
+    elif '3-Man Challenge' in li.text:
         print('3 man challenge slate, skipping')
     else:
         slate_list.append(li.get_attribute('data-value'))
