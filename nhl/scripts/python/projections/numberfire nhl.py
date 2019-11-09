@@ -131,7 +131,9 @@ def populateColumn(columnName, data):
     temp_df[columnName] = data
     temp_df[columnName] = temp_df[columnName].astype(str)
     temp_df[columnName] = temp_df[columnName].apply(lambda x: x.replace('\\t', '').replace(
-        '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
+        '\\n', '').replace('\"', '').replace('[', '').replace(']', '').strip())
+    temp_df[columnName] = temp_df[columnName].apply(
+        lambda x: re.sub(r"^'|'$", '', x).strip())
     return temp_df[columnName]
 
 
