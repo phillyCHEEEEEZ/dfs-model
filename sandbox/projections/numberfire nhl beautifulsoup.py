@@ -3,9 +3,8 @@ import pandas as pd
 import requests
 import numpy as np
 
-
-skater_url = requests.get(
-    'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters').text
+# working directory
+wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 
 skater_names = []
 skater_positions = []
@@ -25,10 +24,15 @@ skater_blocks = []
 skater_mins = []
 skater_pim = []
 
+# skater_url = requests.get(
+#     'https://www.numberfire.com/nhl/daily-fantasy/daily-hockey-projections/skaters').text
+
+skater_url = driver.page_source
+
 skater_soup = BeautifulSoup(skater_url, 'lxml')
 
 skater_table = skater_soup.find(
-    'table', class_='stat-table fixed-head')
+    'tbody', class_='stat-table__body')
 
 skater_html_dict = {
     'skater_names': [
@@ -340,6 +344,5 @@ skater_df['PIM'] = populateColumn('PIM', skater_pim_final)
 
 # skater_df
 
-skater_df.to_csv(
-    'c:\dev\Python\Repos\dfs-model\\numberfire_fanduel_skaters.csv',
-    index=False)
+# export
+skater_df.to_csv(wd + 'numberfire_fanduel_skaters.csv', index=False)
