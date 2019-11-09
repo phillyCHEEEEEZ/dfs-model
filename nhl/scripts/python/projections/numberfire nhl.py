@@ -411,16 +411,23 @@ def createDataFrame(slate_id):
 
     # clean up data
     skater_teams_final_temp = pd.DataFrame(skater_teams_final)
-    skater_teams_final_temp[0] = skater_teams_final_temp[0].astype(str)
-    skater_teams_final_temp[0] = skater_teams_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
-        '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
-    # print(skater_teams_final_temp)
+    try:
+        skater_teams_final_temp[0] = skater_teams_final_temp[0].astype(str)
+        skater_teams_final_temp[0] = skater_teams_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
+            '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
+        # print(skater_teams_final_temp)
+    except:
+        print('skater team names list is empty, skipping')
 
     skater_opponents_final_temp = pd.DataFrame(skater_opponents_final)
-    skater_opponents_final_temp[0] = skater_opponents_final_temp[0].astype(str)
-    skater_opponents_final_temp[0] = skater_opponents_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
-        '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
-    # print(skater_opponents_final_temp)
+    try:
+        skater_opponents_final_temp[0] = skater_opponents_final_temp[0].astype(
+            str)
+        skater_opponents_final_temp[0] = skater_opponents_final_temp[0].apply(lambda x: x.replace('\\t', '').replace(
+            '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
+        # print(skater_opponents_final_temp)
+    except:
+        print('skater opponent names list is empty, skipping')
 
     skater_opponents_final_temp2 = pd.DataFrame(
         [np.nan] * len(skater_teams_final_temp)).fillna('')
@@ -668,7 +675,7 @@ def createDataFrame(slate_id):
             '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
         # print(goalie_teams_final_temp)
     except:
-        print('team names list is empty, skipping')
+        print('goalie team names list is empty, skipping')
 
     goalie_opponents_final_temp = pd.DataFrame(goalie_opponents_final)
     try:
@@ -678,7 +685,7 @@ def createDataFrame(slate_id):
             '\\n', '').replace('\'', '').replace('[', '').replace(']', '').strip())
         # print(goalie_opponents_final_temp)
     except:
-        print('opponent names list is empty, skipping')
+        print('goalie opponent names list is empty, skipping')
 
     goalie_opponents_final_temp2 = pd.DataFrame(
         [np.nan] * len(goalie_teams_final_temp)).fillna('')
