@@ -758,7 +758,11 @@ time.sleep(2)
 
 final_df.drop_duplicates(subset='Name', keep='first', inplace=True)
 
-final_df.sort_values(by=['Salary', 'Name'], ascending=[False, True])
+final_df = final_df.sort_values(by=['Salary', 'Name'], ascending=[False, True])
+
+final_df = final_df.reset_index(drop=True)
+
+time.sleep(2)
 
 # close browser
 driver.close()
