@@ -437,9 +437,6 @@ def createDataFrame(slate_id):
 
     player_df = player_df.reset_index(drop=True)
 
-    for name in player_df['Name']:
-        print(re.sub(r"^'|'$", '', name).strip())
-
     return player_df
 
 
