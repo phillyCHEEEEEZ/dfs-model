@@ -1,22 +1,25 @@
-import numpy as np
-import requests
-import pandas as pd
-from bs4 import BeautifulSoup
 import time
 import os
+import re
+
+import pandas as pd
+import requests
+import numpy as np
+
+from bs4 import BeautifulSoup
+
+from datetime import date, timedelta
 
 from dotenv import load_dotenv
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from datetime import date, timedelta
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# load env vars
-load_dotenv()
+# working directory
+wd = 'c:/dev/Python/Repos/dfs-model/nhl/data/'
 
 # path to webdriver exe
 chromedriver = (
@@ -44,7 +47,7 @@ show_all = driver.find_element_by_xpath(
     '//*[@id="listings"]/div/li/span')
 show_all.click()
 
-time.sleep(5)
+time.sleep(2)
 
 # count number of players
 player_list = driver.find_element_by_id("listings")
@@ -104,7 +107,7 @@ dff_df = pd.DataFrame(index=range(num_players), columns=range(10))
 dff_df.columns = ['Name', 'Position', 'Team', 'Opponent', 'Projection',
                   'Salary', 'Value', 'PP Unit', 'Vegas', 'DvP']
 
-time.sleep(5)
+time.sleep(2)
 
 # populate data frame
 dff_df['Name'] = populateColumn(
@@ -128,12 +131,10 @@ dff_df['Vegas'] = populateColumn(
 dff_df['DvP'] = populateColumn(
     dff_df, num_players, dvp_xpath_1, dvp_xpath_2)
 
-time.sleep(5)
+time.sleep(2)
 
 # close browser
 driver.close()
 
 # export
-dff_df.to_csv(
-    'c:/dev/Python/Repos/dfs-model/nhl/data/dff_fanduel_all.csv',
-    index=False)
+dff_df.to_csv(wd + 'dff_fanduel_all.csv', index=False)
